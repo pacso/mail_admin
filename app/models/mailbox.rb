@@ -9,6 +9,11 @@ class Mailbox < ActiveRecord::Base
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
   
+  
+  def email_address
+    [local_part, domain.name].join '@'
+  end
+  
   def self.find_by_email(address)
     local_part, domain_name = address.split('@')
     if local_part && domain_name
