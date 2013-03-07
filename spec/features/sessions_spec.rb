@@ -1,5 +1,7 @@
 require 'spec_helper'
 
+
+
 describe "Sessions" do
   subject { page }
   
@@ -39,4 +41,18 @@ describe "Sessions" do
       end
     end
   end
+  
+  # describe "sign_out" do
+  #   let(:mailbox) { FactoryGirl.create(:mailbox) }
+  # 
+  #   before do
+  #     ApplicationController.any_instance.stub(:current_mailbox).and_return(mailbox)
+  #     visit root_path
+  #     click_link "Sign Out"
+  #   end
+  #   
+  #   it { should_not have_link "Sign Out" }
+  #   it { should have_content "Successfully signed out" }
+  #   its(:current_path) { should eq root_path }
+  # end
 end
