@@ -11,8 +11,12 @@ class Mailbox < ActiveRecord::Base
   
   def self.find_by_email(address)
     local_part, domain_name = address.split('@')
-    domain = Domain.find_by_name(domain_name)
-    enabled.with_domain_id(domain.id).find_by_local_part(local_part)
+    if local_part && domain_name
+      domain = Domain.find_by_name(domain_name)
+      enabled.with_domain_id(domain.id).find_by_local_part(local_part)
+    else
+      false
+    end
   end
   
 end
