@@ -1,4 +1,10 @@
 MailAdmin::Application.routes.draw do
+  
+  match 'sign_in' => 'sessions#new', as: :sign_in
+  resources :sessions
+  
+  root to: 'pages#homepage'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

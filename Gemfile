@@ -11,6 +11,7 @@ gem 'mysql2'
 # in production environments by default.
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
+  gem "bootstrap-sass", "~> 2.3.0.1"
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -20,6 +21,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem "haml", "~> 4.0.0"
+gem "simple_form", "~> 2.1.0"
 
 group :test do
   gem "rspec-rails", "~> 2.13.0"
