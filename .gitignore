@@ -3,6 +3,8 @@
 .sass-cache
 capybara-*.html
 .rspec
+/.rvmrc
+/bin
 /.bundle
 /vendor/bundle
 /log/*
