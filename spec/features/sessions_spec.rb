@@ -27,7 +27,7 @@ describe "Sessions" do
         click_button "Sign In"
       end
       
-      it { should have_link "Logout" }
+      it { should have_link "Sign Out" }
       its(:current_path) { should eq root_path }
     end
   end

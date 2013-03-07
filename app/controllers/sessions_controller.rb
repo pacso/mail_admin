@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     
     if mailbox && mailbox.authenticate(params[:mailbox][:password])
       session[:mailbox_id] = mailbox.id
-      redirect_to root_url
+      redirect_to root_path
     else
       redirect_to sign_in_path, alert: "Access Denied"
     end
