@@ -31,23 +31,33 @@ describe "Sessions" do
     end
     
     describe "with valid details" do
-      let(:mailbox) { FactoryGirl.create(:mailbox) }
       before do
         fill_in "Email", with: mailbox.email_address
         fill_in "Password", with: mailbox.password
         click_button sign_in
       end
       
-      it { should have_link "Sign Out" }
-      its(:current_path) { should eq homepage_path }
-      
-      describe "followed by sign out" do
-        before { click_link "Sign Out" }
+      describe "against an enabled account" do        
+        let(:mailbox) { FactoryGirl.create(:mailbox) }
+        it { should have_link "Sign Out" }
+        its(:current_path) { should eq homepage_path }
         
-        it { should_not have_link "Logout" }
-        it { should have_content "Successfully signed out" }
-        its(:current_path) { should eq root_path }
+        describe "followed by sign out" do
+          before { click_link "Sign Out" }
+
+          it { should_not have_link "Logout" }
+          it { should have_content "Successfully signed out" }
+          its(:current_path) { should eq root_path }
+        end
       end
+      
+      describe "against a disabled account" do
+        let(:mailbox) { FactoryGirl.create(:disabled_mailbox) }
+        it { should_not have_link "Sign Out" }
+        it { should have_content "Access Denied" }
+        its(:current_path) { should eq sign_in_path }
+      end
+
     end
   end
   
