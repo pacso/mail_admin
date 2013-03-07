@@ -15,4 +15,10 @@ class SessionsController < ApplicationController
       redirect_to sign_in_path, alert: "Access Denied"
     end
   end
+  
+  def destroy
+    session[:mailbox_id] = nil
+    @current_mailbox = nil
+    redirect_to root_path, notice: "Successfully signed out"
+  end
 end

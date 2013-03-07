@@ -29,6 +29,14 @@ describe "Sessions" do
       
       it { should have_link "Sign Out" }
       its(:current_path) { should eq root_path }
+      
+      describe "followed by sign out" do
+        before { click_link "Sign Out" }
+        
+        it { should_not have_link "Logout" }
+        it { should have_content "Successfully signed out" }
+        its(:current_path) { should eq root_path }
+      end
     end
   end
 end
