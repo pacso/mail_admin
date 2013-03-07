@@ -31,6 +31,7 @@ group :test do
   gem "capybara", "~> 2.0.2"
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker", "~> 1.1.2"
+  gem "rb-fsevent", "~> 0.9.3"
 end
 
 # To use ActiveModel has_secure_password
