@@ -1,14 +1,13 @@
 require 'spec_helper'
 
-
-
 describe "Sessions" do
   subject { page }
+  let(:sign_in) { "Sign In" }
   
   describe "sign in page" do
     before { visit sign_in_path }
     
-    it { should have_selector('legend', text: 'Sign In') }
+    it { should have_selector('legend', text: sign_in) }
   end
   
   describe "sign in" do
@@ -26,7 +25,7 @@ describe "Sessions" do
       before do
         fill_in "Email", with: mailbox.email_address
         fill_in "Password", with: mailbox.password
-        click_button "Sign In"
+        click_button sign_in
       end
       
       it { should have_link "Sign Out" }
