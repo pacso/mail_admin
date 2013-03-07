@@ -13,9 +13,19 @@ describe "Sessions" do
   describe "sign in" do
     before { visit sign_in_path }
     
-    describe "with invalid details" do
-      before { click_button "Sign In" }
+    describe "with no details" do
+      before { click_button sign_in }
       
+      it { should have_content "Access Denied" }
+      its(:current_path) { should eq sign_in_path }
+    end
+    
+    describe "with invalid details" do
+      before do
+        fill_in "Email", with: Faker::Internet.email
+        fill_in "Password", with: "randomtext"
+        click_button sign_in
+      end
       it { should have_content "Access Denied" }
       its(:current_path) { should eq sign_in_path }
     end
