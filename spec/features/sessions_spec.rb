@@ -39,7 +39,7 @@ describe "Sessions" do
       end
       
       it { should have_link "Sign Out" }
-      its(:current_path) { should eq root_path }
+      its(:current_path) { should eq homepage_path }
       
       describe "followed by sign out" do
         before { click_link "Sign Out" }

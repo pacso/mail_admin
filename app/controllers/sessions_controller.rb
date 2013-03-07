@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authenticate
+  skip_before_filter :authenticate, except: :new
   
   def new
-
+    redirect_to homepage_path if current_mailbox
   end
   
   def create
