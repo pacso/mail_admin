@@ -6,9 +6,13 @@ class Mailbox < ActiveRecord::Base
   
   belongs_to :domain
   
+  scope :enabled, ->{ where(enabled: true) }
+  scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
+  
   def self.find_by_email(address)
-    local_part, domain = address.split('@')
-    joins(:domain).select('CONCAT(mailboxes.local_part, \'@\', domains.name)').where('mailboxes.local_part = ? AND domains.name = ? AND mailboxes.enabled = 1', local_part, domain).first
+    local_part, domain_name = address.split('@')
+    domain = Domain.find_by_name(domain_name)
+    enabled.with_domain_id(domain.id).find_by_local_part(local_part)
   end
   
 end
