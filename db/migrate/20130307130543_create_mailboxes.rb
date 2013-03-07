@@ -4,6 +4,7 @@ class CreateMailboxes < ActiveRecord::Migration
       t.integer :domain_id
       t.string :local_part
       t.string :password_digest
+      t.string :exim_password_digest
       t.boolean :enabled, default: true
       t.string :forwarding_address
       t.boolean :forwarding_enabled, default: false

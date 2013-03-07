@@ -1,7 +1,7 @@
 class Mailbox < ActiveRecord::Base
   attr_accessible :delete_spam_enabled, :delete_spam_threshold, :delivery_enabled, :domain_id,
                   :enabled, :forwarding_address, :forwarding_enabled, :local_part, :move_spam_enabled,
-                  :move_spam_threshold, :password_digest
+                  :move_spam_threshold, :exim_password_digest, :password, :password_confirmation
   has_secure_password
   
   belongs_to :domain
