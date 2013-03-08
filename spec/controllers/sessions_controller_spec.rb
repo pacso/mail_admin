@@ -53,4 +53,24 @@ describe SessionsController do
       end
     end
   end
+  
+  describe "DELETE #destroy" do
+    let(:mailbox) { create(:mailbox) }
+    before { session[:mailbox_id] = mailbox.id }
+    
+    context "when logged in" do
+      before do
+        post :destroy
+      end
+
+      it "clears the mailbox_id from the session" do
+        expect(session[:mailbox_id]).to be_nil
+      end
+      
+      it "no longer returns a mailbox in current_mailbox" do
+        get :new
+        assigns(:current_mailbox).should be_nil
+      end
+    end
+  end
 end
