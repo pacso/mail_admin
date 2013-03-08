@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "Routes" do
   describe "Homepage" do
-    it "routes / to sessions#new when not signed in" do
+    it "routes / to pages#index" do
       { get: '/' }.should route_to(
-        controller: "sessions",
-        action: "new"
+        controller: "pages",
+        action: "index"
       )
     end
   end

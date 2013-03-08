@@ -8,8 +8,8 @@ describe SessionsController do
         get :new
       end
       
-      it "redirects to the homepage" do
-        response.should redirect_to homepage_path
+      it "redirects to /" do
+        response.should redirect_to root_path
       end
     end
     
