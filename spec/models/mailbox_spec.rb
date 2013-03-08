@@ -5,6 +5,7 @@ describe Mailbox do
     create(:mailbox).should be_valid
   end
   
+  # Validations
   it "is invalid without a local_part" do
     build(:mailbox, local_part: nil).should_not be_valid
   end
@@ -17,9 +18,16 @@ describe Mailbox do
     build(:mailbox, domain_id: nil).should_not be_valid
   end
   
-  it "returns a full email address as a string" do
+  it "does not allow duplicate mailboxes per domain" do
     domain = create(:domain)
-    mailbox = build(:mailbox, domain: domain)
-    mailbox.email_address.should eq mailbox.local_part + '@' + domain.name
+    create(:mailbox, domain: domain, local_part: 'test')
+    build(:mailbox, domain: domain, local_part: 'test').should_not be_valid
+  end
+
+  # Instance Methods
+  it "returns a full email address as a string" do
+    domain = create(:domain, name: 'test-domain.com')
+    mailbox = build(:mailbox, domain: domain, local_part: 'test-account')
+    mailbox.email_address.should eq "test-account@test-domain.com"
   end
 end
