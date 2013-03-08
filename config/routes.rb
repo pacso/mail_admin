@@ -1,8 +1,9 @@
 MailAdmin::Application.routes.draw do
   
-  match 'sign_in' => 'sessions#new', as: :sign_in
+  get 'sign_in' => 'sessions#new', as: :sign_in
+  post 'sign_in' => 'sessions#create', as: :sign_in
   match 'sign_out' => 'sessions#destroy', as: :sign_out
-  resources :sessions
+  # resources :sessions
 
   match 'home' => 'pages#homepage', as: :homepage
   root to: 'sessions#new'

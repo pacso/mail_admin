@@ -12,7 +12,8 @@ class SessionsController < ApplicationController
       session[:mailbox_id] = mailbox.id
       redirect_to root_path
     else
-      redirect_to sign_in_path, alert: "Access Denied"
+      flash.now.alert = "Access Denied"
+      render :new
     end
   end
   
