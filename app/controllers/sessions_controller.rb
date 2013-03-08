@@ -20,7 +20,6 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:mailbox_id] = nil
-    @current_mailbox = nil
     redirect_to root_path, notice: "Successfully signed out"
   end
 end
