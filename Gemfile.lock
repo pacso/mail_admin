@@ -51,6 +51,14 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.1)
+    columnize (0.3.6)
+    debugger (1.4.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.1.1)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.1.2)
+      debugger-ruby_core_source (>= 1.1.1)
+    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -186,6 +194,7 @@ DEPENDENCIES
   bootstrap-sass (~> 2.3.0.1)
   capybara (~> 2.0.2)
   coffee-rails (~> 3.2.1)
+  debugger
   factory_girl_rails (~> 4.2.1)
   faker (~> 1.1.2)
   guard-rspec (~> 2.5.0)

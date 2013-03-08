@@ -24,17 +24,17 @@ gem 'jquery-rails'
 gem "haml", "~> 4.0.0"
 gem "simple_form", "~> 2.1.0"
 
-gem "awesome_print", group: :development, require: false
-
-gem "factory_girl_rails", "~> 4.2.1", group: [:development, :test]
-group :test do
+group :development, :test do
   gem "rspec-rails", "~> 2.13.0"
   gem "guard-rspec", "~> 2.5.0"
   gem "guard-spork", "~> 1.5.0"
   gem "capybara", "~> 2.0.2"
   
+  gem "factory_girl_rails", "~> 4.2.1"
   gem "faker", "~> 1.1.2"
   gem "rb-fsevent", "~> 0.9.3"
+  
+  gem "awesome_print", require: false
 end
 
 # To use ActiveModel has_secure_password
@@ -50,4 +50,4 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'capistrano'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
