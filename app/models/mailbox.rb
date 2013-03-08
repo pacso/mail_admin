@@ -9,10 +9,10 @@ class Mailbox < ActiveRecord::Base
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
   
-  validates :local_part,  :format => { :with => /^[^@^\ ]+$/ },
-                          :length => { :minimum => 1, :maximum => 64, },
+  validates :local_part,  :format => { :with => /^[^@^\ ]+$/, :if => Proc.new { |m| m.local_part.present? }},
+                          :length => { :maximum => 64 },
                           :presence => true,
-                          :uniqueness => { :scope => :domain_id }
+                          :uniqueness => { :scope => :domain_id, :case_sensitive => false }
 
   validates :domain,      :presence => true
   

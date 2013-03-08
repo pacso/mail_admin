@@ -3,8 +3,10 @@ require 'spec_helper'
 describe SessionsController do
   describe "GET #new" do
     context "when logged in" do
+      let(:mailbox) { create(:mailbox) }
       before(:each) do
-        ApplicationController.any_instance.stub(:current_mailbox).and_return(FactoryGirl.create(:mailbox))
+        session[:mailbox_id] = mailbox.id
+        # ApplicationController.any_instance.stub(:current_mailbox).and_return(FactoryGirl.create(:mailbox))
         get :new
       end
       
