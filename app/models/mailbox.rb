@@ -9,6 +9,13 @@ class Mailbox < ActiveRecord::Base
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
   
+  validates :local_part,  :format => { :with => /^[^@^\ ]+$/ },
+                          :length => { :minimum => 1, :maximum => 64, },
+                          :presence => true,
+                          :uniqueness => { :scope => :domain_id }
+
+  validates :domain,      :presence => true
+  
   
   def email_address
     [local_part, domain.name].join '@'
