@@ -30,4 +30,16 @@ describe Mailbox do
     mailbox = build(:mailbox, domain: domain, local_part: 'test-account')
     mailbox.email_address.should eq "test-account@test-domain.com"
   end
+  
+  # Class Methods
+  it "returns a mailbox when searching for a full address" do
+    domain = create(:domain, name: 'example.com')
+    mailbox = create(:mailbox, domain: domain, local_part: 'user')
+    Mailbox.find_by_email("user@example.com").should eq mailbox
+  end
+  
+  it "returns false when no mailbox is found" do
+    Mailbox.find_by_email("user@example.com").should be false
+  end
+  
 end
