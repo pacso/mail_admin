@@ -38,7 +38,7 @@ describe "Sessions" do
       end
       
       describe "against an enabled account" do        
-        let(:mailbox) { FactoryGirl.create(:mailbox) }
+        let(:mailbox) { create(:mailbox) }
         it { should have_link "Sign Out" }
         its(:current_path) { should eq homepage_path }
         
@@ -52,7 +52,7 @@ describe "Sessions" do
       end
       
       describe "against a disabled account" do
-        let(:mailbox) { FactoryGirl.create(:disabled_mailbox) }
+        let(:mailbox) { create(:disabled_mailbox) }
         it { should_not have_link "Sign Out" }
         it { should have_content "Access Denied" }
         its(:current_path) { should eq sign_in_path }
@@ -62,7 +62,7 @@ describe "Sessions" do
   end
   
   # describe "sign_out" do
-  #   let(:mailbox) { FactoryGirl.create(:mailbox) }
+  #   let(:mailbox) { create(:mailbox) }
   # 
   #   before do
   #     ApplicationController.any_instance.stub(:current_mailbox).and_return(mailbox)
