@@ -10,6 +10,11 @@ describe PagesController do
         get :index
         expect(response).to render_template :index
       end
+      
+      it "fetches the users mailbox" do
+        get :index
+        expect(assigns(:mailbox)).to eq mailbox
+      end
     end
   end
   
