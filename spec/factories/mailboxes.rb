@@ -13,4 +13,8 @@ FactoryGirl.define do
   factory :site_admin_mailbox, parent: :mailbox do
     roles %w[site_admin]
   end
+  
+  factory :domain_admin_mailbox, parent: :mailbox do
+    roles %w[domain_admin]
+  end
 end
