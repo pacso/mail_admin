@@ -13,19 +13,29 @@ describe Mailbox do
   
   it "must not allow a local_part longer than 64 characters" do
     mailbox = build(:mailbox, local_part: (0...65).map{ ('a'..'z').to_a[rand(26)] }.join)
-    expect(mailbox).to_not be_valid
+    expect(mailbox).to have(1).errors_on(:local_part)
   end
   
   it "must be associated with a domain" do
     mailbox = build(:mailbox, domain_id: nil)
-    expect(mailbox).to_not be_valid
+    expect(mailbox).to have(1).errors_on(:domain)
   end
   
   it "does not allow duplicate mailboxes per domain" do
     domain = create(:domain)
     create(:mailbox, domain: domain, local_part: 'test')
     mailbox = build(:mailbox, domain: domain, local_part: 'test')
-    expect(mailbox).to_not be_valid
+    expect(mailbox).to have(1).errors_on(:local_part)
+  end
+  
+  it "must have a move_spam_threshold greater than zero" do
+    mailbox = build(:mailbox, move_spam_threshold: 0)
+    expect(mailbox).to have(1).errors_on(:move_spam_threshold)
+  end
+  
+  it "must have a delete_spam_threshold greater than the move_spam_threshold" do
+    mailbox = build(:mailbox, move_spam_threshold: 3, delete_spam_threshold: 2)
+    expect(mailbox).to have(1).errors_on(:delete_spam_threshold)
   end
 
   # Instance Methods

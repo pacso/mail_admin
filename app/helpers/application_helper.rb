@@ -10,4 +10,12 @@ module ApplicationHelper
       type
     end
   end
+  
+  def status_label(status)
+    if status
+      render partial: 'layouts/enabled'
+    else
+      render partial: 'layouts/disabled'
+    end
+  end
 end

@@ -13,7 +13,7 @@ describe PagesController do
       
       it "fetches the users mailbox" do
         get :index
-        expect(assigns(:mailbox)).to eq mailbox
+        expect(assigns(:my_account)).to eq mailbox
       end
     end
   end

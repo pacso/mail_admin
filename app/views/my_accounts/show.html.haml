@@ -1,0 +1,18 @@
+.row-fluid
+  .span8.offset2
+    %h1.page-header
+      Account Settings
+      %small= @mailbox.email_address
+      / = link_to 'Cancel', root_path, class: 'btn pull-right'
+    
+    = simple_form_for @mailbox, url: my_account_path, html: { class: "form-horizontal span10 offset1"}  do |f|
+      / = f.input :local_part, wrapper: :append do
+      /   = f.input_field :local_part, disabled: true, class: 'right-align'
+      /   %span.add-on @#{@mailbox.domain.name}
+      = f.input :delivery_enabled, hint: "If unticked, mail will not be delivered to your inbox."
+      = f.input :delete_spam_threshold
+      = f.input :delete_spam_enabled
+      = f.input :move_spam_threshold
+      = f.input :move_spam_enabled, hint: "If the delete filter is enabled, only mail lower than the delete threshold will be available to the move filter."
+      = f.button :submit, 'Save Settings', disable_with: "Please Wait...", class: "btn-primary span6"
+      = submit_tag 'Cancel', type: :reset, class: "btn btn-danger span6"

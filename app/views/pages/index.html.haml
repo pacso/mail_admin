@@ -1,1 +1,34 @@
-%h1 Welcome
+.row-fluid
+  .span8.offset2
+    .tabbable
+      %ul.nav.nav-tabs
+        %li.active
+          = link_to "#my_account", data: { toggle: 'tab' } do
+            My Account
+        %li
+          = link_to "#domain_accounts", data: { toggle: 'tab' } do
+            Domain Accounts
+      .tab-content
+        #my_account.tab-pane.active
+          %h2.page-header
+            = @my_account.email_address
+            %small Account Settings
+            = link_to my_account_path, class: 'btn btn-primary pull-right' do
+              %i.icon-pencil.icon-white
+              Edit my account
+            
+          %h3 Spam Handling
+          
+          %h4
+            Deleting spam
+            %small= status_label @my_account.delete_spam_enabled?
+          %p Message with a spam score of #{@my_account.delete_spam_threshold} or higher are eligible for deletion.
+          
+          %h4
+            Filtering spam
+            %small= status_label @my_account.move_spam_enabled?
+          %p Messages with a spam score of #{@my_account.move_spam_threshold} or higher are eligible to be filtered unless already deleted.
+          
+          
+        #domain_accounts.tab-pane
+          %p Domain accounts here

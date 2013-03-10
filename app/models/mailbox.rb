@@ -19,6 +19,9 @@ class Mailbox < ActiveRecord::Base
 
   validates :domain,      :presence => true
   
+  validates_numericality_of :delete_spam_threshold, greater_than: :move_spam_threshold, message: "must be greater than move spam threshold"
+  validates :move_spam_threshold,   :numericality => {  :greater_than => 0 }
+  
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end
