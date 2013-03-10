@@ -45,10 +45,24 @@ describe PagesController do
     end
 
     context "as a domain admin" do
-      let(:mailbox) { create(:domain_admin_mailbox, domain: domain1) }
+      let!(:mailbox) { create(:domain_admin_mailbox, domain: domain1) }
+      let!(:mailbox1) { create(:mailbox, domain: domain1) }
+      let!(:mailbox2) { create(:mailbox, domain: domain1) }
+      let!(:other_mailbox) { create(:mailbox, domain: domain2) }
       it_behaves_like "standard template rendering"
 
       describe "GET #index" do
+        
+        it "fetches all accounts for the current_mailbox domain" do
+          get :index
+          expect(assigns(:mailboxes)).to match_array [mailbox, mailbox1, mailbox2]
+        end
+        # This test explicitly requires other_mailbox not to be included in @mailboxes
+        # Redundant since previous test covers this requirement, but included for clarity
+        it "does not include mailboxes from other domains" do 
+          get :index
+          expect(assigns(:mailboxes)).to_not include other_mailbox
+        end
         it "does not assign a list of domains" do
           get :index
           expect(assigns(:domains)).to be_nil
