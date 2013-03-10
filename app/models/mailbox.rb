@@ -1,8 +1,11 @@
 class Mailbox < ActiveRecord::Base
   attr_accessible :delete_spam_enabled, :delete_spam_threshold, :delivery_enabled, :domain_id,
                   :enabled, :forwarding_address, :forwarding_enabled, :local_part, :move_spam_enabled,
-                  :move_spam_threshold, :exim_password_digest, :password, :password_confirmation
+                  :move_spam_threshold, :exim_password_digest, :password, :password_confirmation,
+                  :roles
   has_secure_password
+  
+  ROLES = %w[site_admin domain_admin]
   
   belongs_to :domain
   
@@ -16,6 +19,17 @@ class Mailbox < ActiveRecord::Base
 
   validates :domain,      :presence => true
   
+  def roles=(roles)
+    self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
+  end
+  
+  def roles
+    ROLES.reject { |r| ((self.roles_mask || 0) & 2**ROLES.index(r)).zero? }
+  end
+
+  def has_role?(role)
+    roles.include?(role.to_s)
+  end
   
   def email_address
     [local_part, domain.name].join '@'

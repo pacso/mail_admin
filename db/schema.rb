@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307130543) do
+ActiveRecord::Schema.define(:version => 20130310123745) do
 
   create_table "domains", :force => true do |t|
     t.string   "name"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(:version => 20130307130543) do
     t.integer  "move_spam_threshold_int",   :default => 35
     t.datetime "created_at",                                   :null => false
     t.datetime "updated_at",                                   :null => false
+    t.integer  "roles_mask"
   end
 
   create_table "sessions", :force => true do |t|

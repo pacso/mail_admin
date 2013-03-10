@@ -9,4 +9,8 @@ FactoryGirl.define do
   factory :disabled_mailbox, parent: :mailbox do
     enabled false
   end
+  
+  factory :site_admin_mailbox, parent: :mailbox do
+    roles %w[site_admin]
+  end
 end
