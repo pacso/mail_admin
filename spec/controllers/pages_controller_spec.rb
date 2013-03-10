@@ -13,45 +13,53 @@ describe PagesController do
     end
   end
   
-  describe "when signed out" do
-    it "requires you to sign in" do
-      get :index
-      expect(response).to require_sign_in
+  context "when signed out" do
+    describe "GET #index" do
+      it "requires you to sign in" do
+        get :index
+        expect(response).to require_sign_in
+      end
     end
   end
   
-  describe "when signed in" do
+  context "when signed in" do
     before(:each) do
       set_current_mailbox mailbox
     end
     
-    describe "as a standard user" do
+    context "as a standard user" do
       let(:mailbox) { create(:mailbox, domain: domain1) }
       it_behaves_like "standard template rendering"
-
-      it "does not assign a list of domains" do
-        get :index
-        expect(assigns(:domains)).to be_nil
+      
+      describe "GET #index" do
+        it "does not assign a list of domains" do
+          get :index
+          expect(assigns(:domains)).to be_nil
+        end
       end
     end
 
-    describe "as a domain admin" do
+    context "as a domain admin" do
       let(:mailbox) { create(:domain_admin_mailbox, domain: domain1) }
       it_behaves_like "standard template rendering"
 
-      it "does not assign a list of domains" do
-        get :index
-        expect(assigns(:domains)).to be_nil
+      describe "GET #index" do
+        it "does not assign a list of domains" do
+          get :index
+          expect(assigns(:domains)).to be_nil
+        end
       end
     end
 
-    describe "as a site admin" do
+    context "as a site admin" do
       let(:mailbox) { create(:site_admin_mailbox, domain: domain1) }
       it_behaves_like "standard template rendering"
 
-      it "assigns a list of domains" do
-        get :index
-        expect(assigns(:domains)).to match_array [domain1, domain2]
+      describe "GET #index" do
+        it "assigns a list of domains" do
+          get :index
+          expect(assigns(:domains)).to match_array [domain1, domain2]
+        end
       end
     end
     
