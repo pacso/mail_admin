@@ -5,8 +5,7 @@ describe SessionsController do
     context "when logged in" do
       let(:mailbox) { create(:mailbox) }
       before(:each) do
-        session[:mailbox_id] = mailbox.id
-        # ApplicationController.any_instance.stub(:current_mailbox).and_return(FactoryGirl.create(:mailbox))
+        set_current_mailbox(mailbox)
         get :new
       end
       
@@ -60,7 +59,7 @@ describe SessionsController do
     context "when logged in" do
       let(:mailbox) { create(:mailbox) }
       before do
-        session[:mailbox_id] = mailbox.id
+        set_current_mailbox(mailbox)
         post :destroy
       end
 

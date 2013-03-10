@@ -44,6 +44,8 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
     
+    config.include SessionMacros
+    
     # Mix in FactoryGirl syntax methods
     config.include FactoryGirl::Syntax::Methods
   end

@@ -3,6 +3,13 @@ require 'spec_helper'
 describe PagesController do
   
   describe "GET #index" do
+    let(:get_index) { -> { get :index} }
+    
+    it "requires you to be signed in" do
+      get_index
+      expect(response).to require_sign_in
+    end
+    
     context "when not logged in" do
       it "redirects to the sign_in page" do
         get :index
