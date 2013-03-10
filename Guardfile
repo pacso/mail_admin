@@ -25,6 +25,9 @@ guard 'rspec' do #, :cli => '--drb' do
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
+  
+  # FactoryGirl
+  watch(%r{^spec/factories/(.+)\.rb$})                { "spec" }
 
   # Capybara features specs
   watch(%r{^app/controllers/.*\.(rb)$})               { |m| "spec/features" }
