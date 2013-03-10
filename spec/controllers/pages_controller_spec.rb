@@ -10,12 +10,6 @@ describe PagesController do
       expect(response).to require_sign_in
     end
     
-    context "when not logged in" do
-      it "redirects to the sign_in page" do
-        get :index
-        response.should redirect_to sign_in_path
-      end
-    end
     describe "when logged in" do
       let!(:domain1) { create :domain }
       let!(:domain2) { create :domain }
@@ -24,10 +18,15 @@ describe PagesController do
         set_current_mailbox(mailbox)
       end
       
+      it "renders the index view" do
+        get :index
+        expect(response).to render_template(:index)
+      end
+      
       context "with a standard account" do
         it "does not assign a list of domains" do
           # expect get_index.to
-          assigns(:domains).should be_nil
+          expect(assigns(:domains)).to be_nil
         end
       end
       
@@ -40,13 +39,10 @@ describe PagesController do
         
         it "assigns a list of domains" do
           get :index
-          assigns(:domains).should eq [domain1, domain2]
+          expect(assigns(:domains)).to match_array [domain1, domain2]
         end
       end
-      
 
-      
-      
     end
   end
 end
