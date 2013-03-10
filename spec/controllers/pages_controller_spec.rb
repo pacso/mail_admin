@@ -52,7 +52,6 @@ describe PagesController do
       it_behaves_like "standard template rendering"
 
       describe "GET #index" do
-        
         it "fetches all accounts for the current_mailbox domain" do
           get :index
           expect(assigns(:mailboxes)).to match_array [mailbox, mailbox1, mailbox2]
