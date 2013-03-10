@@ -57,11 +57,10 @@ describe SessionsController do
   end
   
   describe "DELETE #destroy" do
-    let(:mailbox) { create(:mailbox) }
-    before { session[:mailbox_id] = mailbox.id }
-    
     context "when logged in" do
+      let(:mailbox) { create(:mailbox) }
       before do
+        session[:mailbox_id] = mailbox.id
         post :destroy
       end
 
@@ -69,9 +68,8 @@ describe SessionsController do
         expect(session[:mailbox_id]).to be_nil
       end
       
-      it "no longer returns a mailbox in current_mailbox" do
-        get :new
-        assigns(:current_mailbox).should be_nil
+      it "redirects to the sign_in page" do
+        expect(response).to redirect_to sign_in_path
       end
     end
   end

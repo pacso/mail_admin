@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :authenticate, except: :new
+  skip_before_filter :authenticate, except: :destroy
   
   def new
     # Cannot sign in twice
@@ -20,6 +20,6 @@ class SessionsController < ApplicationController
   
   def destroy
     session[:mailbox_id] = nil
-    redirect_to root_path, notice: "Successfully signed out"
+    redirect_to sign_in_path, notice: "Successfully signed out"
   end
 end

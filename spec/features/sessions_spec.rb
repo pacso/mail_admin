@@ -47,7 +47,7 @@ describe "Sessions" do
 
           it { should_not have_link "Logout" }
           it { should have_content "Successfully signed out" }
-          its(:current_path) { should eq root_path }
+          its(:current_path) { should eq sign_in_path }
         end
       end
       
