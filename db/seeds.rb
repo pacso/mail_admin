@@ -8,4 +8,4 @@
 
 # Create a default admin account, admin@example.com, with password 'password'
 domain = Domain.create(name: 'example.com')
-Mailbox.create(domain_id: domain.id, local_part: 'admin', exim_password_digest: '5f4dcc3b5aa765d61d8327deb882cf99', password: 'password', password_confirmation: 'password' )
+Mailbox.create(domain_id: domain.id, local_part: 'admin', exim_password_digest: '5f4dcc3b5aa765d61d8327deb882cf99', password: 'password', password_confirmation: 'password', roles: ['domain_admin'] )
