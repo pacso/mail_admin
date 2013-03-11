@@ -1,0 +1,12 @@
+.row-fluid
+  .span6.offset3
+    %h1.page-header
+      Change Password
+      %small= @mailbox.email_address
+    
+    = simple_form_for @mailbox, url: change_password_path, html: { class: 'form-horizontal span8 offset2' } do |f|
+      = f.input :old_password, label: "Existing Password", input_html: { class: 'span12' }
+      = f.input :password, label: "New Password", input_html: { class: 'span12' }
+      = f.input :password_confirmation, label: "Confirm New Password", input_html: { class: 'span12' }
+      = f.button :submit, "Change Password", class: "btn-primary span6"
+      = submit_tag "Cancel", type: :reset, class: "btn span6"
