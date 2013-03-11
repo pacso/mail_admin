@@ -36,4 +36,12 @@ class MailboxesController < ApplicationController
       render :edit
     end
   end
+  
+  def destroy
+    @domain = current_mailbox.domain
+    @mailbox = Mailbox.find(params[:id])
+    
+    @mailbox.destroy
+    redirect_to domain_mailboxes_path
+  end
 end
