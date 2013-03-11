@@ -71,6 +71,18 @@ describe Mailbox do
     expect(mailbox.exim_password_digest).to eq md5_hash
   end
   
+  it "assigns the int value of move_spam_threshold correctly" do
+    mailbox = build(:mailbox)
+    mailbox.move_spam_threshold = 4.8
+    expect(mailbox.move_spam_threshold_int).to eq 48
+  end
+  
+  it "assigns the int value of delete_spam_threshold correctly" do
+    mailbox = build(:mailbox)
+    mailbox.delete_spam_threshold = 9.8
+    expect(mailbox.delete_spam_threshold_int).to eq 98
+  end
+  
   # Class Methods
   it "returns a mailbox when searching for a full address" do
     domain = create(:domain, name: 'example.com')
