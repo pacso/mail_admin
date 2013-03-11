@@ -66,6 +66,14 @@ feature "Domain Admins" do
     expect(page).to have_css("table tbody tr", count: 2)
     expect(page).to_not have_content user_mailbox_2.email_address
   end
+  
+  scenario "can not delete their own account" do
+    visit root_path
+    click_link "Domain Accounts"
+    click_link "Edit Accounts"
+    within(:css, "table") { click_link mailbox.email_address }
+    expect(page).to_not have_button("Delete Account")
+  end
 end
 
 
