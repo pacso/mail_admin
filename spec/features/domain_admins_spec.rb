@@ -53,4 +53,34 @@ feature "Domain Admins" do
     expect(page).to have_content("Account #{user_mailbox_2.email_address} updated successfully")
     expect(page).to have_content('6.6')
   end
+  
+  scenario "can delete an account from their domain" do #, js: true do
+    visit root_path
+    click_link "Domain Accounts"
+    click_link "Edit Accounts"
+    expect(page).to have_css("table tbody tr", count: 3)
+    
+    click_link user_mailbox_2.email_address
+    expect{ click_button "Delete Account" }.to change(Mailbox, :count).by(-1)
+    expect(current_path).to eq domain_mailboxes_path
+    expect(page).to have_css("table tbody tr", count: 2)
+    expect(page).to_not have_content user_mailbox_2.email_address
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
