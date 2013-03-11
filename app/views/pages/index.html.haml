@@ -9,50 +9,5 @@
           = link_to "#domain_accounts", data: { toggle: 'tab' } do
             Domain Accounts
       .tab-content
-        #my_account.tab-pane.active
-          %h2.page-header
-            = @my_account.email_address
-            %small Account Settings
-            = link_to my_account_path, class: 'btn btn-primary pull-right' do
-              %i.icon-pencil.icon-white
-              Edit my account
-
-          %h3 Mail Delivery
-          
-          %h4
-            Local Delivery
-            %small= status_label @my_account.delivery_enabled?
-          %p When enabled, email will be delivered to your inbox
-          
-          %h4
-            Mail Forwarding
-            %small= status_label @my_account.forwarding_enabled?
-          %p
-            - if @my_account.forwarding_enabled?
-              Your email will be automatically redirected to
-              %strong= @my_account.forwarding_address
-            - else
-              Edit your account to redirect your email to another address.
-          
-          %h3 Spam Handling
-          
-          %h4
-            Deleting spam
-            %small= status_label @my_account.delete_spam_enabled?
-          %p Message with a spam score of #{@my_account.delete_spam_threshold} or higher are eligible for deletion.
-          
-          %h4
-            Filtering spam
-            %small= status_label @my_account.move_spam_enabled?
-          %p Messages with a spam score of #{@my_account.move_spam_threshold} or higher are eligible to be filtered unless already deleted.
-          
-          %h3 Virus Scanning
-          
-          %h4
-            Virus Filter
-            %small= status_label true
-          %p Virus protection is enabled on all accounts and cannot be configured through this control panel. Emails found to contain a virus will be immediately deleted.
-          %p Please contact #{mail_to 'jon.pascoe@me.com', 'Jon Pascoe'} if you have any questions.
-          
-        #domain_accounts.tab-pane
-          %p Domain accounts here
+        = render :partial => 'my_account_tab', locals: { mailbox: @my_account }
+        = render :partial => 'domain_accounts_tab', locals: { mailboxes: @mailboxes } if current_mailbox.has_role? :domain_admin

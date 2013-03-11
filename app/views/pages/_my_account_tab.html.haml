@@ -1,0 +1,44 @@
+#my_account.tab-pane.active
+  %h2.page-header
+    = mailbox.email_address
+    %small Account Settings
+    = link_to my_account_path, class: 'btn btn-primary pull-right' do
+      %i.icon-pencil.icon-white
+      Edit my account
+
+  %h3 Mail Delivery
+  
+  %h4
+    Local Delivery
+    %small= status_label mailbox.delivery_enabled?
+  %p When enabled, email will be delivered to your inbox
+  
+  %h4
+    Mail Forwarding
+    %small= status_label mailbox.forwarding_enabled?
+  %p
+    - if mailbox.forwarding_enabled?
+      Your email will be automatically redirected to
+      %strong= mailbox.forwarding_address
+    - else
+      Edit your account to redirect your email to another address.
+  
+  %h3 Spam Handling
+  
+  %h4
+    Deleting spam
+    %small= status_label mailbox.delete_spam_enabled?
+  %p Message with a spam score of #{mailbox.delete_spam_threshold} or higher are eligible for deletion.
+  
+  %h4
+    Filtering spam
+    %small= status_label mailbox.move_spam_enabled?
+  %p Messages with a spam score of #{mailbox.move_spam_threshold} or higher are eligible to be filtered unless already deleted.
+  
+  %h3 Virus Scanning
+  
+  %h4
+    Virus Filter
+    %small= status_label true
+  %p Virus protection is enabled on all accounts and cannot be configured through this control panel. Emails found to contain a virus will be immediately deleted.
+  %p Please contact #{mail_to 'jon.pascoe@me.com', 'Jon Pascoe'} if you have any questions.

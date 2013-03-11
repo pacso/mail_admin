@@ -1,0 +1,14 @@
+#domain_accounts.tab-pane
+  %h2.page-header
+    = mailboxes.first.domain.name
+    %small Accounts
+  
+  %table.table
+    %thead
+      %tr
+        %th Email Address
+    %tbody
+      - mailboxes.each do |mailbox|
+        %tr
+          %td
+            = mailbox.email_address 
