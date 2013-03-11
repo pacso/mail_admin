@@ -31,7 +31,7 @@ class MailboxesController < ApplicationController
     @mailbox = Mailbox.find(params[:id])
     
     if @mailbox.update_attributes(params[:mailbox])
-      redirect_to domain_mailboxes_path, notice: "Account #{@mailbox.email_address} updated successfully"
+      redirect_to domain_mailboxes_path, notice: "Account #{@mailbox.email} updated successfully"
     else
       render :edit
     end
