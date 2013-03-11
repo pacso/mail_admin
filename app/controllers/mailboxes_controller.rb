@@ -20,4 +20,20 @@ class MailboxesController < ApplicationController
       render :new
     end
   end
+  
+  def edit
+    @domain = current_mailbox.domain
+    @mailbox = Mailbox.find(params[:id])
+  end
+  
+  def update
+    @domain = current_mailbox.domain
+    @mailbox = Mailbox.find(params[:id])
+    
+    if @mailbox.update_attributes(params[:mailbox])
+      redirect_to domain_mailboxes_path, notice: "Account #{@mailbox.email_address} updated successfully"
+    else
+      render :edit
+    end
+  end
 end

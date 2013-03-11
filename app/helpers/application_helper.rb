@@ -18,4 +18,12 @@ module ApplicationHelper
       render partial: 'layouts/disabled'
     end
   end
+  
+  def setting_status(status)
+    if status
+      render partial: 'layouts/setting_enabled'
+    else
+      render partial: 'layouts/setting_disabled'
+    end
+  end
 end

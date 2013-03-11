@@ -1,0 +1,14 @@
+= simple_form_for [:domain, mailbox], html: { class: 'form-horizontal' } do |f|
+  = f.input :local_part, label: "Email", wrapper: :append do
+    = f.input_field :local_part, class: 'right-align'
+    %span.add-on @#{mailbox.domain.name}
+  = f.input :password
+  = f.input :password_confirmation
+  = f.input :delivery_enabled, hint: "If unticked, mail will not be delivered to your inbox."
+  = f.input :forwarding_address
+  = f.input :forwarding_enabled
+  = f.input :delete_spam_threshold
+  = f.input :delete_spam_enabled
+  = f.input :move_spam_threshold
+  = f.input :move_spam_enabled, hint: "If the delete filter is enabled, only mail lower than the delete threshold will be available to the move filter."
+  = f.button :submit, 'Save', disable_with: 'Please Wait...'
