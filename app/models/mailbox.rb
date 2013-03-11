@@ -25,6 +25,9 @@ class Mailbox < ActiveRecord::Base
   validates :forwarding_address, :format => { :with => /^[^@^\ ]+@[^@@\ ]+\.[^@@\ ]+$/,
                                               :message => "must be a valid email address when forwarding is enabled.",
                                               :if => Proc.new { |m| m.forwarding_enabled? } }
+  validates :delivery_enabled,    inclusion: { in: [false],
+                                               if: :forwarding_enabled?,
+                                               message: "cannot be selected when mail forwarding is enabled."}
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)

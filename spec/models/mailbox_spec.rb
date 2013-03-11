@@ -42,6 +42,11 @@ describe Mailbox do
     mailbox = build(:mailbox, forwarding_enabled: true)
     expect(mailbox).to have(1).errors_on(:forwarding_address)
   end
+  
+  it "should not allow local delivery when forwarding enabled" do
+    mailbox = build(:mailbox, forwarding_enabled: true, forwarding_address: 'test@example.com')
+    expect(mailbox).to have(1).errors_on(:delivery_enabled)
+  end
 
   # Instance Methods
   it "returns a full email address as a string" do
