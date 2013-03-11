@@ -33,7 +33,11 @@ group :development, :test do
   gem "factory_girl_rails", "~> 4.2.1"
   gem "faker", "~> 1.1.2"
   gem "rb-fsevent", "~> 0.9.3"
-  
+
+  gem "launchy", "~> 2.2.0"
+  gem "better_errors", "~> 0.7.2"
+  gem "binding_of_caller", "~> 0.7.1"
+  gem "meta_request", "~> 0.2.2"
   gem "awesome_print", require: false
 end
 
