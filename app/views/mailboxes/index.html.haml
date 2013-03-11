@@ -19,7 +19,7 @@
       %tbody
         - @mailboxes.each do |mailbox|
           %tr
-            %td= link_to mailbox.email_address, edit_domain_mailbox_path(mailbox)
+            %td= link_to mailbox.email, edit_domain_mailbox_path(mailbox)
             %td= setting_status mailbox.delivery_enabled?
             %td
               = setting_status mailbox.move_spam_enabled?

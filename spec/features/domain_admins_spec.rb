@@ -14,10 +14,10 @@ feature "Domain Admins" do
     visit root_path
     click_link "Domain Accounts"
     
-    expect(page).to have_content mailbox.email_address
-    expect(page).to have_content user_mailbox_1.email_address
-    expect(page).to have_content user_mailbox_2.email_address
-    expect(page).to_not have_content other_mailbox.email_address
+    expect(page).to have_content mailbox.email
+    expect(page).to have_content user_mailbox_1.email
+    expect(page).to have_content user_mailbox_2.email
+    expect(page).to_not have_content other_mailbox.email
   end
   
   scenario "can create a new account within their domain" do
@@ -45,12 +45,12 @@ feature "Domain Admins" do
     click_link "Edit Accounts"
     expect(page).to_not have_content('6.6')
     
-    click_link user_mailbox_2.email_address
+    click_link user_mailbox_2.email
     fill_in "mailbox_delete_spam_threshold", with: 6.6
     click_button "Save"
     
     expect(current_path).to eq domain_mailboxes_path
-    expect(page).to have_content("Account #{user_mailbox_2.email_address} updated successfully")
+    expect(page).to have_content("Account #{user_mailbox_2.email} updated successfully")
     expect(page).to have_content('6.6')
   end
   
@@ -60,18 +60,18 @@ feature "Domain Admins" do
     click_link "Edit Accounts"
     expect(page).to have_css("table tbody tr", count: 3)
     
-    click_link user_mailbox_2.email_address
+    click_link user_mailbox_2.email
     expect{ click_button "Delete Account" }.to change(Mailbox, :count).by(-1)
     expect(current_path).to eq domain_mailboxes_path
     expect(page).to have_css("table tbody tr", count: 2)
-    expect(page).to_not have_content user_mailbox_2.email_address
+    expect(page).to_not have_content user_mailbox_2.email
   end
   
   scenario "can not delete their own account" do
     visit root_path
     click_link "Domain Accounts"
     click_link "Edit Accounts"
-    within(:css, "table") { click_link mailbox.email_address }
+    within(:css, "table") { click_link mailbox.email }
     expect(page).to_not have_button("Delete Account")
   end
 end

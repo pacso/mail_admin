@@ -28,7 +28,7 @@ describe SessionsController do
     
     context "with valid attributes for an existing account" do
       before(:each) do
-        post :create, mailbox: { email: mailbox.email_address, password: mailbox.password }
+        post :create, mailbox: { email: mailbox.email, password: mailbox.password }
       end
         
       it "assigns the mailbox.id to session[:mailbox_id]" do

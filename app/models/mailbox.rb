@@ -58,7 +58,7 @@ class Mailbox < ActiveRecord::Base
     self.delete_spam_threshold_int = (float*10).to_i
   end
   
-  def email_address
+  def email
     [local_part, domain.name].join '@'
   end
   

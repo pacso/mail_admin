@@ -5,7 +5,7 @@ module SessionMacros
   
   def sign_in(mailbox)
     visit root_path
-    fill_in 'Email', with: mailbox.email_address
+    fill_in 'Email', with: mailbox.email
     fill_in 'Password', with: mailbox.password
     click_button 'Sign In'
   end

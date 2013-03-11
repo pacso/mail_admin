@@ -52,7 +52,7 @@ describe Mailbox do
   it "returns a full email address as a string" do
     domain = create(:domain, name: 'test-domain.com')
     mailbox = build(:mailbox, domain: domain, local_part: 'test-account')
-    expect(mailbox.email_address).to eq "test-account@test-domain.com"
+    expect(mailbox.email).to eq "test-account@test-domain.com"
   end
   
   it "assigning password updates exim_password_digest" do

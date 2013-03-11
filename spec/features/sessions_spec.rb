@@ -32,7 +32,7 @@ describe "Sessions" do
     
     describe "with valid details" do
       before do
-        fill_in "Email", with: mailbox.email_address
+        fill_in "Email", with: mailbox.email
         fill_in "Password", with: mailbox.password
         click_button sign_in
       end
