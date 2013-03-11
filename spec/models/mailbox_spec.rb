@@ -45,6 +45,22 @@ describe Mailbox do
     expect(mailbox.email_address).to eq "test-account@test-domain.com"
   end
   
+  it "assigning password updates exim_password_digest" do
+    old_password = 'password'
+    new_password = 'newpass!'
+    mailbox = create(:mailbox, password: old_password, password_confirmation: old_password)
+    old_exim_password_digest = mailbox.exim_password_digest
+    mailbox.password = new_password
+    expect(mailbox.exim_password_digest).to_not eq old_exim_password_digest
+  end
+  
+  it "assigns correct hash to exim_password_digest" do
+    password = 'testpass123'
+    md5_hash = 'cd8ae748d23722682cc20ad62e7cb6e9'
+    mailbox = create(:mailbox, password: password, password_confirmation: password)
+    expect(mailbox.exim_password_digest).to eq md5_hash
+  end
+  
   # Class Methods
   it "returns a mailbox when searching for a full address" do
     domain = create(:domain, name: 'example.com')

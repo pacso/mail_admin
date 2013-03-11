@@ -34,6 +34,13 @@ class Mailbox < ActiveRecord::Base
     roles.include?(role.to_s)
   end
   
+  def password=(unencrypted_password)
+    super(unencrypted_password)
+    unless unencrypted_password.blank?
+      self.exim_password_digest = Digest::MD5.hexdigest(unencrypted_password)
+    end
+  end
+  
   def email_address
     [local_part, domain.name].join '@'
   end
