@@ -37,6 +37,11 @@ describe Mailbox do
     mailbox = build(:mailbox, move_spam_threshold: 3, delete_spam_threshold: 2)
     expect(mailbox).to have(1).errors_on(:delete_spam_threshold)
   end
+  
+  it "should be invalid without a forwarding_address if forwarding_enabled" do
+    mailbox = build(:mailbox, forwarding_enabled: true)
+    expect(mailbox).to have(1).errors_on(:forwarding_address)
+  end
 
   # Instance Methods
   it "returns a full email address as a string" do

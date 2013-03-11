@@ -19,8 +19,12 @@ class Mailbox < ActiveRecord::Base
 
   validates :domain,      :presence => true
   
-  validates_numericality_of :delete_spam_threshold, greater_than: :move_spam_threshold, message: "must be greater than move spam threshold"
+  validates :delete_spam_threshold, :numericality => {greater_than: :move_spam_threshold, message: "must be greater than move spam threshold"}
   validates :move_spam_threshold,   :numericality => {  :greater_than => 0 }
+  
+  validates :forwarding_address, :format => { :with => /^[^@^\ ]+@[^@@\ ]+\.[^@@\ ]+$/,
+                                              :message => "must be a valid email address when forwarding is enabled.",
+                                              :if => Proc.new { |m| m.forwarding_enabled? } }
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)

@@ -10,6 +10,8 @@
       /   = f.input_field :local_part, disabled: true, class: 'right-align'
       /   %span.add-on @#{@mailbox.domain.name}
       = f.input :delivery_enabled, hint: "If unticked, mail will not be delivered to your inbox."
+      = f.input :forwarding_address
+      = f.input :forwarding_enabled
       = f.input :delete_spam_threshold
       = f.input :delete_spam_enabled
       = f.input :move_spam_threshold

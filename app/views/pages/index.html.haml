@@ -16,7 +16,24 @@
             = link_to my_account_path, class: 'btn btn-primary pull-right' do
               %i.icon-pencil.icon-white
               Edit my account
-            
+
+          %h3 Mail Delivery
+          
+          %h4
+            Local Delivery
+            %small= status_label @my_account.delivery_enabled?
+          %p When enabled, email will be delivered to your inbox
+          
+          %h4
+            Mail Forwarding
+            %small= status_label @my_account.forwarding_enabled?
+          %p
+            - if @my_account.forwarding_enabled?
+              Your email will be automatically redirected to
+              %strong= @my_account.forwarding_address
+            - else
+              Edit your account to redirect your email to another address.
+          
           %h3 Spam Handling
           
           %h4
