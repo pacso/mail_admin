@@ -28,6 +28,12 @@ describe Mailbox do
     expect(mailbox).to have(1).errors_on(:local_part)
   end
   
+  it "does not allow empty passwords" do
+    mailbox = build(:mailbox, password: nil, password_confirmation: nil)
+    # expect(mailbox).to_not be_valid
+    expect(mailbox).to have(1).errors_on(:password)
+  end
+  
   it "must have a move_spam_threshold greater than zero" do
     mailbox = build(:mailbox, move_spam_threshold: 0)
     expect(mailbox).to have(1).errors_on(:move_spam_threshold)
