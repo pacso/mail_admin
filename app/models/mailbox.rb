@@ -28,6 +28,7 @@ class Mailbox < ActiveRecord::Base
   validates :delivery_enabled,    inclusion: { in: [false],
                                                if: :forwarding_enabled?,
                                                message: "cannot be selected when mail forwarding is enabled."}
+  validates :password, presence: true, on: :create
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
