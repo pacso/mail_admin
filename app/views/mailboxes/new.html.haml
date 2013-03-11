@@ -1,0 +1,13 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small New Account
+    
+    = simple_form_for [:domain, @mailbox] do |f|
+      = f.input :local_part, label: "Email", wrapper: :append do
+        = f.input_field :local_part, class: 'right-align'
+        %span.add-on @#{@mailbox.domain.name}
+      = f.input :password
+      = f.input :password_confirmation
+      = f.button :submit, 'Create Account', disable_with: 'Please Wait...'

@@ -1,0 +1,20 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small Domain Accounts
+    
+    %p
+      = link_to new_domain_mailbox_path, class: 'btn btn-primary' do
+        %i.icon-plus.icon-white
+        Create New Account
+    
+    %table.table
+      %thead
+        %tr
+          %th Email Address
+      %tbody
+        - @mailboxes.each do |mailbox|
+          %tr
+            %td= mailbox.email_address
+    

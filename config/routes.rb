@@ -9,4 +9,7 @@ MailAdmin::Application.routes.draw do
   put 'change_password' => 'passwords#update', as: :change_password
 
   resource :my_account
+  resource :domain do
+    resources :mailboxes
+  end
 end
