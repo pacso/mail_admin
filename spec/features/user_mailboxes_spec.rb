@@ -42,17 +42,11 @@ feature "User Mailboxes" do
     visit root_path
     expect(current_path).to eq sign_in_path
     
-    fill_in 'Email', with: mailbox.email_address
-    fill_in 'Password', with: old_password
-    click_button 'Sign In'
-    
+    sign_in_with(mailbox.email_address, old_password)
     expect(page).to have_content "Access Denied"
     expect(current_path).to eq sign_in_path
     
-    fill_in 'Email', with: mailbox.email_address
-    fill_in 'Password', with: new_password
-    click_button 'Sign In'
-    
+    sign_in_with(mailbox.email_address, new_password)
     expect(page).to have_content "Logged in as #{mailbox.email_address}"
     expect(current_path).to eq root_path
   end
