@@ -52,5 +52,5 @@
           %tbody
             - @aliases.each do |mailbox_alias|
               %tr
-                %td= mailbox_alias.email
+                %td= link_to mailbox_alias.email, edit_domain_alias_path(mailbox_alias)
                 %td= mailbox_alias.mailbox.email

@@ -1,4 +1,4 @@
-= simple_form_for mailbox_alias, url: domain_aliases_path, html: { class: 'form-horizontal' } do |f|
+= simple_form_for [:domain, mailbox_alias], html: { class: 'form-horizontal' } do |f|
   = f.input :local_part, label: "Email", wrapper: :append do
     = f.input_field :local_part, class: 'right-align'
     %span.add-on @#{domain.name}
