@@ -4,7 +4,7 @@ class Alias < ActiveRecord::Base
   belongs_to :mailbox
   has_one :domain, through: :mailbox
   
-  validates :local_part,  :presence => true
+  validates :local_part,  :presence => true, :uniqueness_on_domain => { if: :mailbox }
   validates :mailbox,     :presence => true
   
   def email

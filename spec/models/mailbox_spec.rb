@@ -25,10 +25,18 @@ describe Mailbox do
     domain = create(:domain)
     create(:mailbox, domain: domain, local_part: 'test')
     mailbox = build(:mailbox, domain: domain, local_part: 'test')
+    domain.reload # required to pick up the added mailbox and alias
     expect(mailbox).to have(1).errors_on(:local_part)
   end
   
-  it "does not allow a mailbox on a domain with a matching alias"
+  it "does not allow a mailbox on a domain with a matching alias" do
+    domain = create(:domain)
+    mailbox1 = create(:mailbox, domain: domain)
+    mailbox_alias = create(:alias, mailbox: mailbox1, local_part: 'local_part')
+    mailbox = build(:mailbox, domain: domain, local_part: 'local_part')
+    domain.reload # required to pick up the added mailbox and alias
+    expect(mailbox).to have(1).errors_on(:local_part)
+  end
   
   it "does not allow empty passwords" do
     mailbox = build(:mailbox, password: nil, password_confirmation: nil)
