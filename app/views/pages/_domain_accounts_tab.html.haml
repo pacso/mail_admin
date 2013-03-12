@@ -21,6 +21,7 @@
           %thead
             %tr
               %th Email Address
+              %th Aliases
               %th Delivery
               %th Move Spam
               %th Delete Spam
@@ -28,6 +29,7 @@
             - @mailboxes.each do |mailbox|
               %tr
                 %td= link_to mailbox.email, edit_domain_mailbox_path(mailbox)
+                %td= mailbox.aliases.map { |a| a.email }.join('<br />').html_safe
                 %td= setting_status mailbox.delivery_enabled?
                 %td
                   = setting_status mailbox.move_spam_enabled?

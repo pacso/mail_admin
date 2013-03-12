@@ -86,6 +86,9 @@ feature "Domain Admins" do
     expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
     expect(page).to have_content "Alias created"
     expect(page).to have_content "new_alias@#{domain1.name}"
+    
+    click_link "Accounts"
+    expect(page).to have_css("#accounts table", text: "new_alias@#{user_mailbox_1.domain.name}")
   end
   
   scenario "can edit an alias within thier domain" do
