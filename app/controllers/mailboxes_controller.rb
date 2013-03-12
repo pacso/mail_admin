@@ -15,7 +15,7 @@ class MailboxesController < ApplicationController
     @mailbox = @domain.mailboxes.build(params[:mailbox])
     
     if @mailbox.save
-      redirect_to domain_mailboxes_path, notice: "Account created successfully"
+      redirect_to tabbed_home_path(:domain_admin, :accounts), notice: "Account created successfully"
     else
       render :new
     end
@@ -31,7 +31,7 @@ class MailboxesController < ApplicationController
     @mailbox = Mailbox.find(params[:id])
     
     if @mailbox.update_attributes(params[:mailbox])
-      redirect_to domain_mailboxes_path, notice: "Account #{@mailbox.email} updated successfully"
+      redirect_to tabbed_home_path(:domain_admin, :accounts), notice: "Account #{@mailbox.email} updated successfully"
     else
       render :edit
     end
@@ -42,6 +42,6 @@ class MailboxesController < ApplicationController
     @mailbox = Mailbox.find(params[:id])
     
     @mailbox.destroy
-    redirect_to domain_mailboxes_path
+    redirect_to tabbed_home_path(:domain_admin, :accounts)
   end
 end

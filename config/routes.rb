@@ -12,4 +12,6 @@ MailAdmin::Application.routes.draw do
   resource :domain do
     resources :mailboxes
   end
+  
+  get 'home/:active_tab/:active_pill' => 'pages#index', as: :tabbed_home
 end

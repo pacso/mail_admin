@@ -1,17 +1,39 @@
-#domain_accounts.tab-pane
-  %h2.page-header
-    = mailboxes.first.domain.name
-    %small Accounts
-    = link_to domain_mailboxes_path, class: 'btn btn-primary pull-right' do
-      %i.icon-pencil.icon-white
-      Edit Accounts
-  
-  %table.table
-    %thead
-      %tr
-        %th Email Address
-    %tbody
-      - mailboxes.each do |mailbox|
-        %tr
-          %td
-            = mailbox.email 
+#domain_accounts.tab-pane{class: "#{'active' if params[:active_tab].present? && params[:active_tab] == 'domain_admin'}"}
+  .tabbable
+    %ul.nav.nav-pills
+      %li.active
+        = link_to "#accounts", data: { toggle: 'tab' } do
+          Accounts
+      %li
+        = link_to "#aliases", data: { toggle: 'tab' } do
+          Aliases
+    .tab-content
+      #accounts.tab-pane.active
+        %h2.page-header
+          = mailboxes.first.domain.name
+          %small Accounts
+        %p
+          = link_to new_domain_mailbox_path, class: 'btn btn-primary' do
+            %i.icon-plus.icon-white
+            Create New Account
+
+        %table.table
+          %thead
+            %tr
+              %th Email Address
+              %th Delivery
+              %th Move Spam
+              %th Delete Spam
+          %tbody
+            - @mailboxes.each do |mailbox|
+              %tr
+                %td= link_to mailbox.email, edit_domain_mailbox_path(mailbox)
+                %td= setting_status mailbox.delivery_enabled?
+                %td
+                  = setting_status mailbox.move_spam_enabled?
+                  = mailbox.move_spam_threshold
+                %td
+                  = setting_status mailbox.delete_spam_enabled?
+                  = mailbox.delete_spam_threshold
+      #aliases.tab-pane
+        %h2.page-header Aliases
