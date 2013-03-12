@@ -10,7 +10,7 @@
     .tab-content
       #accounts.tab-pane{class: "#{'active' if params[:active_pill].blank? || params[:active_pill] == 'accounts'}"}
         %h2.page-header
-          = mailboxes.first.domain.name
+          = current_mailbox.domain.name
           %small Accounts
         %p
           = link_to new_domain_mailbox_path, class: 'btn btn-primary' do
@@ -36,4 +36,21 @@
                   = setting_status mailbox.delete_spam_enabled?
                   = mailbox.delete_spam_threshold
       #aliases.tab-pane{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'aliases'}"}
-        %h2.page-header Aliases
+        %h2.page-header
+          = current_mailbox.domain.name
+          %small Aliases
+        %p
+          = link_to new_domain_alias_path, class: 'btn btn-primary' do
+            %i.icon-plus.icon-white
+            Create New Alias
+        
+        %table.table
+          %thead
+            %tr
+              %th Alias Address
+              %th Destination
+          %tbody
+            - @aliases.each do |mailbox_alias|
+              %tr
+                %td= mailbox_alias.email
+                %td= mailbox_alias.mailbox.email

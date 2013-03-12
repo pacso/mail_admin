@@ -66,8 +66,25 @@ feature "Domain Admins" do
   scenario "can not delete their own account" do
     visit root_path
     click_link "Domain Admin"
-    within(:css, "table") { click_link mailbox.email }
+    within(:css, "#accounts table") { click_link mailbox.email }
     expect(page).to_not have_button("Delete Account")
+  end
+  
+  scenario "can create aliases within their domain" do
+    visit root_path
+    click_link "Domain Admin"
+    click_link "Aliases"
+    
+    click_link "Create New Alias"
+    expect(current_path).to eq new_domain_alias_path
+    
+    expect{ fill_in "Email", with: "new_alias"
+            select user_mailbox_1.email, from: 'Mailbox'
+            click_button "Save"}.to change(Alias, :count).by(1)    
+            
+    expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
+    expect(page).to have_content "Alias created"
+    expect(page).to have_content "new_alias@#{domain1.name}"
   end
 end
 

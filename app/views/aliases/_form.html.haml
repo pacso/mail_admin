@@ -1,0 +1,6 @@
+= simple_form_for mailbox_alias, url: domain_aliases_path, html: { class: 'form-horizontal' } do |f|
+  = f.input :local_part, label: "Email", wrapper: :append do
+    = f.input_field :local_part, class: 'right-align'
+    %span.add-on @#{domain.name}
+  = f.input :mailbox_id, collection: domain.mailboxes, label_method: :email, value_method: :id
+  = f.button :submit, 'Save', disable_with: 'Please Wait...'

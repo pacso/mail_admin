@@ -8,6 +8,7 @@ class Mailbox < ActiveRecord::Base
   ROLES = %w[site_admin domain_admin]
   
   belongs_to :domain
+  has_many :aliases
   
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
