@@ -24,6 +24,8 @@ gem 'jquery-rails'
 gem "haml", "~> 4.0.0"
 gem "simple_form", "~> 2.1.0"
 
+gem "cancan", "~> 1.6.9"
+
 group :development, :test do
   gem "rspec-rails", "~> 2.13.0"
   gem "guard-rspec", "~> 2.5.0"

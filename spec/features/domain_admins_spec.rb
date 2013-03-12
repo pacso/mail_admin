@@ -52,6 +52,11 @@ feature "Domain Admins" do
     expect(page).to have_content('6.6')
   end
   
+  scenario "cannot edit an account within another domain" do
+    visit edit_domain_mailbox_path(other_mailbox)
+    expect(current_path).to_not eq edit_domain_mailbox_path(other_mailbox)
+  end
+  
   scenario "can delete an account from their domain" do #, js: true do
     visit root_path
     click_link "Domain Admin"
@@ -120,6 +125,5 @@ feature "Domain Admins" do
     expect(page).to have_css("#aliases table tbody tr", count: 0)
     expect(page).to_not have_content user_mailbox_1_alias.email
   end
-  
   
 end
