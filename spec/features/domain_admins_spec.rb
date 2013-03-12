@@ -6,6 +6,7 @@ feature "Domain Admins" do
   given!(:mailbox) { create(:domain_admin_mailbox, domain: domain1) }
   given!(:user_mailbox_1) { create(:mailbox, domain: domain1) }
   given!(:user_mailbox_2) { create(:mailbox, domain: domain1) }
+  given!(:user_mailbox_1_alias) { create(:alias, mailbox: user_mailbox_1) }
   given!(:other_mailbox) { create(:mailbox, domain: domain2) }
   
   background { sign_in mailbox }
@@ -54,36 +55,71 @@ feature "Domain Admins" do
   scenario "can delete an account from their domain" do #, js: true do
     visit root_path
     click_link "Domain Admin"
-    expect(page).to have_css("table tbody tr", count: 3)
+    expect(page).to have_css("#accounts table tbody tr", count: 3)
     
     click_link user_mailbox_2.email
     expect{ click_button "Delete Account" }.to change(Mailbox, :count).by(-1)
     expect(current_path).to eq tabbed_home_path(:domain_admin, :accounts)
-    expect(page).to have_css("table tbody tr", count: 2)
+    expect(page).to have_css("#accounts table tbody tr", count: 2)
     expect(page).to_not have_content user_mailbox_2.email
   end
   
   scenario "can not delete their own account" do
     visit root_path
     click_link "Domain Admin"
-    within(:css, "table") { click_link mailbox.email }
+    within(:css, "#accounts table") { click_link mailbox.email }
     expect(page).to_not have_button("Delete Account")
   end
+  
+  scenario "can create aliases within their domain" do
+    visit root_path
+    click_link "Domain Admin"
+    click_link "Aliases"
+    
+    click_link "Create New Alias"
+    expect(current_path).to eq new_domain_alias_path
+    
+    expect{ fill_in "Email", with: "new_alias"
+            select user_mailbox_1.email, from: 'Mailbox'
+            click_button "Save"}.to change(Alias, :count).by(1)    
+            
+    expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
+    expect(page).to have_content "Alias created"
+    expect(page).to have_content "new_alias@#{domain1.name}"
+    
+    click_link "Accounts"
+    expect(page).to have_css("#accounts table", text: "new_alias@#{user_mailbox_1.domain.name}")
+  end
+  
+  scenario "can edit an alias within thier domain" do
+    visit root_path
+    click_link "Domain Admin"
+    click_link "Aliases"
+    
+    expect(page).to have_content user_mailbox_1_alias.email
+    click_link user_mailbox_1_alias.email
+    
+    fill_in "Email", with: "updated_alias"
+    click_button "Save"
+    
+    expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
+    expect(page).to have_content("Alias for mailbox #{user_mailbox_1.email} updated successfully")
+    expect(page).to have_content "updated_alias@#{user_mailbox_1.domain.name}"
+    expect(page).to_not have_content user_mailbox_1_alias.email
+  end
+  
+  scenario "can delete an alias from their domain" do #, js: true do
+    visit root_path
+    click_link "Domain Admin"
+    click_link "Aliases"
+    expect(page).to have_css("#aliases table tbody tr", count: 1)
+    
+    click_link user_mailbox_1_alias.email
+    expect{ click_button "Delete Alias" }.to change(Alias, :count).by(-1)
+    expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
+    expect(page).to have_css("#aliases table tbody tr", count: 0)
+    expect(page).to_not have_content user_mailbox_1_alias.email
+  end
+  
+  
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

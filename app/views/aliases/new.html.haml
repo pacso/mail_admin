@@ -1,0 +1,7 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small New Alias
+    
+    = render :partial => 'form', locals: { mailbox_alias: @alias, domain: @domain }

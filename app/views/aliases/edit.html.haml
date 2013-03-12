@@ -1,0 +1,9 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small Edit Alias
+    
+    = render :partial => 'form', locals: { mailbox_alias: @alias, domain: @domain }
+
+    = button_to 'Delete Alias', domain_alias_path(@alias), method: :delete, class: 'btn btn-danger', confirm: "Are you sure?"
