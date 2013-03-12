@@ -1,14 +1,14 @@
 #domain_accounts.tab-pane{class: "#{'active' if params[:active_tab].present? && params[:active_tab] == 'domain_admin'}"}
   .tabbable
     %ul.nav.nav-pills
-      %li.active
+      %li{class: "#{'active' if params[:active_pill].blank? || params[:active_pill] == 'accounts'}"}
         = link_to "#accounts", data: { toggle: 'tab' } do
           Accounts
-      %li
+      %li{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'aliases'}"}
         = link_to "#aliases", data: { toggle: 'tab' } do
           Aliases
     .tab-content
-      #accounts.tab-pane.active
+      #accounts.tab-pane{class: "#{'active' if params[:active_pill].blank? || params[:active_pill] == 'accounts'}"}
         %h2.page-header
           = mailboxes.first.domain.name
           %small Accounts
@@ -35,5 +35,5 @@
                 %td
                   = setting_status mailbox.delete_spam_enabled?
                   = mailbox.delete_spam_threshold
-      #aliases.tab-pane
+      #aliases.tab-pane{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'aliases'}"}
         %h2.page-header Aliases
