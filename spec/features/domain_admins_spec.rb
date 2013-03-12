@@ -104,4 +104,19 @@ feature "Domain Admins" do
     expect(page).to have_content "updated_alias@#{user_mailbox_1.domain.name}"
     expect(page).to_not have_content user_mailbox_1_alias.email
   end
+  
+  scenario "can delete an alias from their domain" do #, js: true do
+    visit root_path
+    click_link "Domain Admin"
+    click_link "Aliases"
+    expect(page).to have_css("#aliases table tbody tr", count: 1)
+    
+    click_link user_mailbox_1_alias.email
+    expect{ click_button "Delete Alias" }.to change(Alias, :count).by(-1)
+    expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
+    expect(page).to have_css("#aliases table tbody tr", count: 0)
+    expect(page).to_not have_content user_mailbox_1_alias.email
+  end
+  
+  
 end
