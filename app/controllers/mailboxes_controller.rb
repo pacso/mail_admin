@@ -24,6 +24,7 @@ class MailboxesController < ApplicationController
   def edit
     @domain = current_mailbox.domain
     @mailbox = Mailbox.find(params[:id])
+    authorize! :edit, @mailbox
   end
   
   def update

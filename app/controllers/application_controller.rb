@@ -1,9 +1,19 @@
 class ApplicationController < ActionController::Base
+  
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+  
   protect_from_forgery
   
   before_filter :authenticate
   
   private
+  
+  # Override CanCan defaults
+  def current_ability
+    @current_ability ||= MailboxAbility.new(current_mailbox)
+  end
   
   def authenticate
     unless current_mailbox
