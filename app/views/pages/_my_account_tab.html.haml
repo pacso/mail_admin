@@ -1,6 +1,6 @@
-#my_account.tab-pane.active
+#my_account.tab-pane{class: "#{'active' if params[:active_tab].blank? || params[:active_tab] == 'my_account'}"}
   %h2.page-header
-    = mailbox.email_address
+    = mailbox.email
     %small Account Settings
     = link_to my_account_path, class: 'btn btn-primary pull-right' do
       %i.icon-pencil.icon-white

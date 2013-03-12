@@ -5,3 +5,5 @@
       %small Edit Account
     
     = render :partial => 'form', locals: { mailbox: @mailbox }
+
+    = button_to 'Delete Account', domain_mailbox_path(@mailbox), method: :delete, class: 'btn btn-danger', confirm: "Are you sure?" unless @mailbox == current_mailbox

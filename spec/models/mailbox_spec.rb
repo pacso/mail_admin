@@ -28,6 +28,14 @@ describe Mailbox do
     expect(mailbox).to have(1).errors_on(:local_part)
   end
   
+  it "does not allow a mailbox on a domain with a matching alias"
+  
+  it "does not allow empty passwords" do
+    mailbox = build(:mailbox, password: nil, password_confirmation: nil)
+    # expect(mailbox).to_not be_valid
+    expect(mailbox).to have(1).errors_on(:password)
+  end
+  
   it "must have a move_spam_threshold greater than zero" do
     mailbox = build(:mailbox, move_spam_threshold: 0)
     expect(mailbox).to have(1).errors_on(:move_spam_threshold)
@@ -49,13 +57,13 @@ describe Mailbox do
   end
 
   # Instance Methods
-  it "returns a full email address as a string" do
+  it "#email returns a full email address as a string" do
     domain = create(:domain, name: 'test-domain.com')
     mailbox = build(:mailbox, domain: domain, local_part: 'test-account')
-    expect(mailbox.email_address).to eq "test-account@test-domain.com"
+    expect(mailbox.email).to eq "test-account@test-domain.com"
   end
   
-  it "assigning password updates exim_password_digest" do
+  it "#password= updates exim_password_digest" do
     old_password = 'password'
     new_password = 'newpass!'
     mailbox = create(:mailbox, password: old_password, password_confirmation: old_password)
@@ -64,11 +72,23 @@ describe Mailbox do
     expect(mailbox.exim_password_digest).to_not eq old_exim_password_digest
   end
   
-  it "assigns correct hash to exim_password_digest" do
+  it "exim_password_digest is set with the correct hash" do
     password = 'testpass123'
     md5_hash = 'cd8ae748d23722682cc20ad62e7cb6e9'
     mailbox = create(:mailbox, password: password, password_confirmation: password)
     expect(mailbox.exim_password_digest).to eq md5_hash
+  end
+  
+  it "#move_spam_threshold= updates move_spam_threshold_int" do
+    mailbox = build(:mailbox)
+    mailbox.move_spam_threshold = 4.8
+    expect(mailbox.move_spam_threshold_int).to eq 48
+  end
+  
+  it "#delete_spam_threshold= updates delete_spam_threshold_int" do
+    mailbox = build(:mailbox)
+    mailbox.delete_spam_threshold = 9.8
+    expect(mailbox.delete_spam_threshold_int).to eq 98
   end
   
   # Class Methods

@@ -2,7 +2,7 @@
   .span8.offset2
     %h1.page-header
       Account Settings
-      %small= @mailbox.email_address
+      %small= @mailbox.email
       / = link_to 'Cancel', root_path, class: 'btn pull-right'
     
     = simple_form_for @mailbox, url: my_account_path, html: { class: "form-horizontal span10 offset1"}  do |f|

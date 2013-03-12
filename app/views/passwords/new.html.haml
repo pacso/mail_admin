@@ -2,7 +2,7 @@
   .span6.offset3
     %h1.page-header
       Change Password
-      %small= @mailbox.email_address
+      %small= @mailbox.email
     
     = simple_form_for @mailbox, url: change_password_path, html: { class: 'form-horizontal span8 offset2' } do |f|
       = f.input :old_password, label: "Existing Password", input_html: { class: 'span12' }

@@ -8,6 +8,7 @@ class Mailbox < ActiveRecord::Base
   ROLES = %w[site_admin domain_admin]
   
   belongs_to :domain
+  has_many :aliases
   
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
@@ -28,6 +29,7 @@ class Mailbox < ActiveRecord::Base
   validates :delivery_enabled,    inclusion: { in: [false],
                                                if: :forwarding_enabled?,
                                                message: "cannot be selected when mail forwarding is enabled."}
+  validates :password, presence: true, on: :create
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
@@ -48,7 +50,17 @@ class Mailbox < ActiveRecord::Base
     end
   end
   
-  def email_address
+  def move_spam_threshold=(float)
+    write_attribute(:move_spam_threshold, float)
+    self.move_spam_threshold_int = (float*10).to_i
+  end
+  
+  def delete_spam_threshold=(float)
+    write_attribute(:delete_spam_threshold, float)
+    self.delete_spam_threshold_int = (float*10).to_i
+  end
+  
+  def email
     [local_part, domain.name].join '@'
   end
   

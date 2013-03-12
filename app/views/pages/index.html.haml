@@ -2,13 +2,13 @@
   .span8.offset2
     .tabbable
       %ul.nav.nav-tabs
-        %li.active
+        %li{class: "#{'active' if params[:active_tab].blank? || params[:active_tab] == 'my_account'}"}
           = link_to "#my_account", data: { toggle: 'tab' } do
             My Account
         - if current_mailbox.has_role? :domain_admin
-          %li
+          %li{class: "#{'active' if params[:active_tab].present? && params[:active_tab] == 'domain_admin'}"}
             = link_to "#domain_accounts", data: { toggle: 'tab' } do
-              Domain Accounts
+              Domain Admin
       .tab-content
         = render :partial => 'my_account_tab', locals: { mailbox: @my_account }
         = render :partial => 'domain_accounts_tab', locals: { mailboxes: @mailboxes } if current_mailbox.has_role? :domain_admin
