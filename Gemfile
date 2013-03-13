@@ -44,7 +44,7 @@ group :development do
   gem "better_errors", "~> 0.7.2"
   gem "binding_of_caller", "~> 0.7.1"
   gem "meta_request", "~> 0.2.2"
-  gem "awesome_print", require: false
+  gem "awesome_print", :require => false
 end
 
 # To use ActiveModel has_secure_password
@@ -57,7 +57,8 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
+gem "rvm-capistrano", "~> 1.2.7"
 
 # To use debugger
 gem 'debugger'
