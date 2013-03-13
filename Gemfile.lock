@@ -237,6 +237,7 @@ DEPENDENCIES
   guard-rspec (~> 2.5.0)
   guard-spork (~> 1.5.0)
   haml (~> 4.0.0)
+  highline (~> 1.6.15)
   jquery-rails
   launchy (~> 2.2.0)
   meta_request (~> 0.2.2)
