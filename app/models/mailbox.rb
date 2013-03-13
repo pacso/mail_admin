@@ -1,8 +1,7 @@
 class Mailbox < ActiveRecord::Base
-  attr_accessible :delete_spam_enabled, :delete_spam_threshold, :delivery_enabled, :domain_id,
-                  :enabled, :forwarding_address, :forwarding_enabled, :local_part, :move_spam_enabled,
-                  :move_spam_threshold, :exim_password_digest, :password, :password_confirmation,
-                  :roles, :old_password
+  attr_accessible :delete_spam_enabled, :delete_spam_threshold, :delivery_enabled, :domain_id, :enabled, :forwarding_address,
+                  :forwarding_enabled, :local_part, :move_spam_enabled, :move_spam_threshold, :exim_password_digest, :password,
+                  :password_confirmation, :roles, :old_password
   has_secure_password
   
   ROLES = %w[site_admin domain_admin]
@@ -13,22 +12,22 @@ class Mailbox < ActiveRecord::Base
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
   
-  validates :local_part,  :format => { :with => /^[^@^\ ]+$/, :if => Proc.new { |m| m.local_part.present? }},
-                          :length => { :maximum => 64 },
-                          :presence => true,
-                          :uniqueness_on_domain => { :if => :domain }
+  validates :local_part,  format: { with: /^[^@^\ ]+$/, if: Proc.new { |m| m.local_part.present? }},
+                          length: { maximum: 64 },
+                          presence: true,
+                          uniqueness_on_domain: { if: :domain }
 
-  validates :domain,      :presence => true
+  validates :domain, presence: true
   
-  validates :delete_spam_threshold, :numericality => {greater_than: :move_spam_threshold, message: "must be greater than move spam threshold"}
-  validates :move_spam_threshold,   :numericality => {  :greater_than => 0 }
+  validates :delete_spam_threshold, numericality: { greater_than: :move_spam_threshold, message: "must be greater than move spam threshold" }
+  validates :move_spam_threshold,   numericality: { greater_than: 0 }
   
-  validates :forwarding_address, :format => { :with => /^[^@^\ ]+@[^@@\ ]+\.[^@@\ ]+$/,
-                                              :message => "must be a valid email address when forwarding is enabled.",
-                                              :if => Proc.new { |m| m.forwarding_enabled? } }
-  validates :delivery_enabled,    inclusion: { in: [false],
-                                               if: :forwarding_enabled?,
-                                               message: "cannot be selected when mail forwarding is enabled."}
+  validates :forwarding_address, format: {  with: /^[^@^\ ]+@[^@@\ ]+\.[^@@\ ]+$/,
+                                            message: "must be a valid email address when forwarding is enabled.",
+                                            if: Proc.new { |m| m.forwarding_enabled? } }
+  validates :delivery_enabled, inclusion: { in: [false],
+                                            if: :forwarding_enabled?,
+                                            message: "cannot be selected when mail forwarding is enabled."}
   validates :password, presence: true, on: :create
   
   def roles=(roles)
