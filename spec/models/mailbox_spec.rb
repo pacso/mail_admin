@@ -32,7 +32,7 @@ describe Mailbox do
   it "does not allow a mailbox on a domain with a matching alias" do
     domain = create(:domain)
     mailbox1 = create(:mailbox, domain: domain)
-    mailbox_alias = create(:alias, mailbox: mailbox1, local_part: 'local_part')
+    mailbox_alias = create(:mailbox_alias, mailbox: mailbox1, local_part: 'local_part')
     mailbox = build(:mailbox, domain: domain, local_part: 'local_part')
     domain.reload # required to pick up the added mailbox and alias
     expect(mailbox).to have(1).errors_on(:local_part)

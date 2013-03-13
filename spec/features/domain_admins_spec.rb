@@ -6,7 +6,7 @@ feature "Domain Admins" do
   given!(:mailbox) { create(:domain_admin_mailbox, domain: domain1) }
   given!(:user_mailbox_1) { create(:mailbox, domain: domain1) }
   given!(:user_mailbox_2) { create(:mailbox, domain: domain1) }
-  given!(:user_mailbox_1_alias) { create(:alias, mailbox: user_mailbox_1) }
+  given!(:user_mailbox_1_alias) { create(:mailbox_alias, mailbox: user_mailbox_1) }
   given!(:other_mailbox) { create(:mailbox, domain: domain2) }
   
   background { sign_in mailbox }
@@ -82,11 +82,11 @@ feature "Domain Admins" do
     click_link "Aliases"
     
     click_link "Create New Alias"
-    expect(current_path).to eq new_domain_alias_path
+    expect(current_path).to eq new_domain_mailbox_alias_path
     
     expect{ fill_in "Email", with: "new_alias"
             select user_mailbox_1.email, from: 'Mailbox'
-            click_button "Save"}.to change(Alias, :count).by(1)    
+            click_button "Save"}.to change(MailboxAlias, :count).by(1)    
             
     expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
     expect(page).to have_content "Alias created"
@@ -120,7 +120,7 @@ feature "Domain Admins" do
     expect(page).to have_css("#aliases table tbody tr", count: 1)
     
     click_link user_mailbox_1_alias.email
-    expect{ click_button "Delete Alias" }.to change(Alias, :count).by(-1)
+    expect{ click_button "Delete Alias" }.to change(MailboxAlias, :count).by(-1)
     expect(current_path).to eq tabbed_home_path(:domain_admin, :aliases)
     expect(page).to have_css("#aliases table tbody tr", count: 0)
     expect(page).to_not have_content user_mailbox_1_alias.email

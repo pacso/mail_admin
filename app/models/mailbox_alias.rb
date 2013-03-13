@@ -1,4 +1,4 @@
-class Alias < ActiveRecord::Base
+class MailboxAlias < ActiveRecord::Base
   attr_accessible :local_part, :mailbox_id
   
   belongs_to :mailbox

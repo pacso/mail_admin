@@ -13,19 +13,19 @@
 
 ActiveRecord::Schema.define(:version => 20130312161823) do
 
-  create_table "aliases", :force => true do |t|
-    t.integer  "mailbox_id"
-    t.string   "local_part"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "domains", :force => true do |t|
     t.string   "name"
     t.boolean  "enabled",    :default => true
     t.boolean  "can_relay",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "mailbox_aliases", :force => true do |t|
+    t.integer  "mailbox_id"
+    t.string   "local_part"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "mailboxes", :force => true do |t|
