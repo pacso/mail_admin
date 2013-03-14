@@ -1,0 +1,7 @@
+= simple_form_for [:domain, mail_group], html: { class: 'form-horizontal' } do |f|
+  = f.input :local_part, label: "Email", wrapper: :append do
+    = f.input_field :local_part, class: 'right-align'
+    %span.add-on @#{domain.name}
+  = f.input :enabled
+  = f.collection_check_boxes :mailbox_ids, domain.mailboxes, :id, :email
+  = f.button :submit, 'Save', disable_with: 'Please Wait...'

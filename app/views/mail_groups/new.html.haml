@@ -1,0 +1,7 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small New Mail Group
+    
+    = render :partial => 'form', locals: { mail_group: @mail_group, domain: @domain }

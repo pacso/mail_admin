@@ -1,0 +1,9 @@
+.row-fluid
+  .span12
+    %h1.page-header
+      = @domain.name
+      %small Edit Mail Group
+    
+    = render :partial => 'form', locals: { mail_group: @mail_group, domain: @domain }
+    
+    = button_to 'Delete Mail Group', domain_mail_group_path(@mail_group), method: :delete, class: 'btn btn-danger', confirm: "Are you sure?"

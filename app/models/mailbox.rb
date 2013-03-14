@@ -8,6 +8,8 @@ class Mailbox < ActiveRecord::Base
   
   belongs_to :domain
   has_many :mailbox_aliases
+  has_many :mail_group_memberships
+  has_many :mail_groups, through: :mail_group_memberships
   
   scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }

@@ -7,6 +7,9 @@
       %li{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'aliases'}"}
         = link_to "#aliases", data: { toggle: 'tab' } do
           Aliases
+      %li{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'mail_groups'}"}
+        = link_to "#mail_groups", data: { toggle: 'tab' } do
+          Mail Groups
     .tab-content
       #accounts.tab-pane{class: "#{'active' if params[:active_pill].blank? || params[:active_pill] == 'accounts'}"}
         %h2.page-header
@@ -56,3 +59,23 @@
               %tr
                 %td= link_to mailbox_alias.email, edit_domain_mailbox_alias_path(mailbox_alias)
                 %td= mailbox_alias.mailbox.email
+      #mail_groups.tab-pane{class: "#{'active' if params[:active_pill].present? && params[:active_pill] == 'mail_groups'}"}
+        %h2.page-header
+          = current_mailbox.domain.name
+          %small Mail Groups
+        %p
+          = link_to new_domain_mail_group_path, class: 'btn btn-primary' do
+            %i.icon-plus.icon-white
+            Create New Mail Group
+        
+        %table.table
+          %thead
+            %tr
+              %th Mail Group Address
+              %th Mailboxes in group
+          %tbody
+            - @mail_groups.each do |mail_group|
+              %tr
+                %td= link_to mail_group.email, edit_domain_mail_group_path(mail_group)
+                %td= mail_group.mailboxes.map { |m| m.email }.join('<br />').html_safe
+                

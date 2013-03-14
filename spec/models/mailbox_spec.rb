@@ -38,6 +38,14 @@ describe Mailbox do
     expect(mailbox).to have(1).errors_on(:local_part)
   end
   
+  it "does not allow a mailbox on a domain with a matching mail group" do
+    domain = create(:domain)
+    mail_group = create(:mail_group, domain: domain, local_part: 'local_part')
+    mailbox = build(:mailbox, domain: domain, local_part: 'local_part')
+    domain.reload # required to pick up the added mailbox and alias
+    expect(mailbox).to have(1).errors_on(:local_part)
+  end
+  
   it "does not allow empty passwords" do
     mailbox = build(:mailbox, password: nil, password_confirmation: nil)
     # expect(mailbox).to_not be_valid

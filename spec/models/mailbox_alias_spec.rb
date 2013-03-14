@@ -31,4 +31,12 @@ describe MailboxAlias do
     mailbox_alias = build(:mailbox_alias, mailbox: mailbox, local_part: 'localpart')    
     expect(mailbox_alias).to have(1).errors_on(:local_part)
   end
+  
+  it "does not allow an alias on a domain with a matching mail group" do
+    domain = create(:domain)
+    mailbox = create(:mailbox, domain: domain)
+    mail_group = create(:mail_group, domain: domain, local_part: 'localpart')
+    mailbox_alias = build(:mailbox_alias, mailbox: mailbox, local_part: 'localpart')    
+    expect(mailbox_alias).to have(1).errors_on(:local_part)
+  end
 end

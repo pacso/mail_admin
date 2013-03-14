@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130312161823) do
+ActiveRecord::Schema.define(:version => 20130313202820) do
 
   create_table "domains", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,21 @@ ActiveRecord::Schema.define(:version => 20130312161823) do
     t.boolean  "can_relay",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "mail_group_memberships", :force => true do |t|
+    t.integer  "mail_group_id"
+    t.integer  "mailbox_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "mail_groups", :force => true do |t|
+    t.integer  "domain_id"
+    t.string   "local_part"
+    t.boolean  "enabled",    :default => true
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "mailbox_aliases", :force => true do |t|

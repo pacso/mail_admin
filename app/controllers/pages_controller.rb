@@ -2,8 +2,13 @@ class PagesController < ApplicationController
   
   def index
     @my_account = current_mailbox
-    @mailboxes = current_mailbox.domain.mailboxes if current_mailbox.has_role? :domain_admin
-    @mailbox_aliases = current_mailbox.domain.mailbox_aliases if current_mailbox.has_role? :domain_admin
+
+    if current_mailbox.has_role? :domain_admin
+      @mailboxes = current_mailbox.domain.mailboxes 
+      @mailbox_aliases = current_mailbox.domain.mailbox_aliases
+      @mail_groups = current_mailbox.domain.mail_groups
+    end
+
     @domains = Domain.all if current_mailbox.has_role? :site_admin
   end
 end

@@ -1,0 +1,2 @@
+module MailGroupsHelper
+end
