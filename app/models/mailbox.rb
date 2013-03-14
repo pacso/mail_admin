@@ -4,6 +4,8 @@ class Mailbox < ActiveRecord::Base
                   :password_confirmation, :roles, :old_password
   has_secure_password
   
+  include Emailable
+  
   ROLES = %w[site_admin domain_admin]
   
   belongs_to :domain
@@ -11,15 +13,8 @@ class Mailbox < ActiveRecord::Base
   has_many :mail_group_memberships
   has_many :mail_groups, through: :mail_group_memberships
   
-  scope :enabled, ->{ where(enabled: true) }
   scope :with_domain_id, ->(domain_id) { where(domain_id: domain_id) }
-  
-  validates :local_part,  format: { with: /^[^@^\ ]+$/, if: Proc.new { |m| m.local_part.present? }},
-                          length: { maximum: 64 },
-                          presence: true,
-                          uniqueness_on_domain: { if: :domain }
-
-  validates :domain, presence: true
+  scope :enabled, ->{ where(enabled: true) }  
   
   validates :delete_spam_threshold, numericality: { greater_than: :move_spam_threshold, message: "must be greater than move spam threshold" }
   validates :move_spam_threshold,   numericality: { greater_than: 0 }
@@ -31,7 +26,7 @@ class Mailbox < ActiveRecord::Base
                                             if: :forwarding_enabled?,
                                             message: "cannot be selected when mail forwarding is enabled."}
   validates :password, presence: true, on: :create
-  
+
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.inject(0, :+)
   end
@@ -59,10 +54,6 @@ class Mailbox < ActiveRecord::Base
   def delete_spam_threshold=(float)
     write_attribute(:delete_spam_threshold, float)
     self.delete_spam_threshold_int = (float*10).to_i
-  end
-  
-  def email
-    [local_part, domain.name].join '@'
   end
   
   def self.find_by_email(address)
