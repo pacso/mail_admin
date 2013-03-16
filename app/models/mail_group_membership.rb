@@ -3,4 +3,6 @@ class MailGroupMembership < ActiveRecord::Base
   
   belongs_to :mail_group
   belongs_to :mailbox
+  
+  validates_presence_of :mail_group, :mailbox
 end

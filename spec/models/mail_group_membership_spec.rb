@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe MailGroupMembership do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "is invalid without a mailbox" do
+    expect(MailGroupMembership.new).to have(1).errors_on(:mailbox)
+  end
+  
+  it "is invalid without a mail_group" do
+    expect(MailGroupMembership.new).to have(1).errors_on(:mail_group)
+  end
 end
