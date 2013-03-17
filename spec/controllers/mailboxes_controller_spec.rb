@@ -1,5 +1,14 @@
 require 'spec_helper'
 
+shared_examples_for "standard MailboxesController template rendering" do
+  describe "GET #index" do
+    it "renders the index view" do
+      get :index
+      expect(response).to render_template :index
+    end
+  end
+end
+
 describe MailboxesController do
   let!(:domain) { create :domain }
   let!(:mailbox) { create :mailbox, domain: domain }
@@ -23,8 +32,13 @@ describe MailboxesController do
     context "as a domain admin" do
       let(:current_mailbox) { domain_admin_mailbox }
       
-      it_behaves_like "standard template rendering"
+      it_behaves_like "standard MailboxesController template rendering"
+      
+      describe "GET #index" do
+        it "does something" do
+          expect(true).to be_true
+        end
+      end
     end
   end
-  
 end

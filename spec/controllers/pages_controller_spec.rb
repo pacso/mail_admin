@@ -1,5 +1,14 @@
 require 'spec_helper'
 
+shared_examples "standard PagesController template rendering" do
+  describe "GET #index" do
+    it "renders the index view" do
+      get :index
+      expect(response).to render_template :index
+    end
+  end
+end
+
 describe PagesController do
   let!(:domain1) { create :domain }
   let!(:domain2) { create :domain }
@@ -20,7 +29,7 @@ describe PagesController do
     
     context "as a standard user" do
       let(:mailbox) { create(:mailbox, domain: domain1) }
-      it_behaves_like "standard template rendering"
+      it_behaves_like "standard PagesController template rendering"
       
       describe "GET #index" do
         it "does not assign a list of domains" do
@@ -39,7 +48,7 @@ describe PagesController do
       let!(:mailbox1) { create(:mailbox, domain: domain1) }
       let!(:mailbox2) { create(:mailbox, domain: domain1) }
       let!(:other_mailbox) { create(:mailbox, domain: domain2) }
-      it_behaves_like "standard template rendering"
+      it_behaves_like "standard PagesController template rendering"
 
       describe "GET #index" do
         it "fetches all accounts for the current_mailbox domain" do
@@ -65,7 +74,7 @@ describe PagesController do
 
     context "as a site admin" do
       let(:mailbox) { create(:site_admin_mailbox, domain: domain1) }
-      it_behaves_like "standard template rendering"
+      it_behaves_like "standard PagesController template rendering"
 
       describe "GET #index" do
         it "assigns a list of domains" do

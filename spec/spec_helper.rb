@@ -65,7 +65,6 @@ Spork.prefork do
     config.order = "random"
     
     config.include SessionMacros
-    config.include SharedExampleGroups
     
     # Mix in FactoryGirl syntax methods
     config.include FactoryGirl::Syntax::Methods
