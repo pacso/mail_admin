@@ -27,6 +27,10 @@ describe PagesController do
           get :index
           expect(assigns(:domains)).to be_nil
         end
+        it "fetches the users mailbox" do
+          get :index
+          expect(assigns(:my_account)).to eq mailbox
+        end
       end
     end
 
@@ -41,6 +45,10 @@ describe PagesController do
         it "fetches all accounts for the current_mailbox domain" do
           get :index
           expect(assigns(:mailboxes)).to match_array [mailbox, mailbox1, mailbox2]
+        end
+        it "fetches the users mailbox" do
+          get :index
+          expect(assigns(:my_account)).to eq mailbox
         end
         # This test explicitly requires other_mailbox not to be included in @mailboxes
         # Redundant since previous test covers this requirement, but included for clarity
@@ -63,6 +71,10 @@ describe PagesController do
         it "assigns a list of domains" do
           get :index
           expect(assigns(:domains)).to match_array [domain1, domain2]
+        end
+        it "fetches the users mailbox" do
+          get :index
+          expect(assigns(:my_account)).to eq mailbox
         end
       end
     end
