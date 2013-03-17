@@ -10,4 +10,5 @@ class MailGroup < ActiveRecord::Base
   scope :enabled, ->{ where(enabled: true) }  
   
   validates :enabled, inclusion: { in: [false], if: Proc.new { |m| m.mail_group_memberships.empty? }, message: "can not enable group witout any members"}
+  validates :mailboxes, associated: true
 end
