@@ -6,6 +6,10 @@ FactoryGirl.define do
     password_confirmation "password"
   end
   
+  factory :invalid_mailbox, parent: :mailbox do
+    local_part "invalid@localpart"
+  end
+  
   factory :disabled_mailbox, parent: :mailbox do
     enabled false
   end
