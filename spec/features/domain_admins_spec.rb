@@ -120,7 +120,7 @@ feature "Domain Admins" do
     expect(current_path).to eq new_domain_mail_group_path
     
     expect{ fill_in "Email", with: "new_group"
-            check "mail_group_mailbox_ids_#{user_mailbox_1.id}"
+            check user_mailbox_2.email
             click_button "Save"}.to change(MailGroup, :count).by(1)
     
     expect(current_path).to eq tabbed_home_path(:domain_admin, :mail_groups)
