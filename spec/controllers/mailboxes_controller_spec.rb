@@ -34,10 +34,38 @@ describe MailboxesController do
     context "as a normal user" do
       let(:current_mailbox) { user_mailbox }
       
+      { get: :new,
+        post: :create,
+        get: :edit,
+        put: :update,
+        delete: :destroy
+      }.each do |verb, action|
+        describe "#{verb.upcase} ##{action}" do
+          it "denies access to mailbox actions" do
+            if action == :new
+              expect{
+                send(verb, action)
+              }.to redirect_to root_path
+            else
+              expect{
+                send(verb, action, id: mailbox)
+              }.to redirect_to root_path
+            end
+          end
+        end
+      end
+            
+      
       describe "GET #new" do
         it "redirects to the root_url" do
           get :new
           expect(response).to redirect_to root_url
+        end
+      end
+      
+      describe "GET #edit" do
+        it "redirects" do
+          
         end
       end
     end
