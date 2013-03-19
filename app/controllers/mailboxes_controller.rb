@@ -1,5 +1,7 @@
 class MailboxesController < ApplicationController
   
+  before_filter :redirect_unless_domain_admin
+  
   def new
     @domain = current_mailbox.domain
     @mailbox = @domain.mailboxes.build
@@ -43,5 +45,11 @@ class MailboxesController < ApplicationController
     
     @mailbox.destroy
     redirect_to tabbed_home_path(:domain_admin, :accounts)
+  end
+  
+  private
+  
+  def redirect_unless_domain_admin
+    redirect_to root_url, alert: "Access denied" unless current_mailbox.has_role? :domain_admin
   end
 end
