@@ -31,11 +31,11 @@ test:
   # password:
   # socket: /tmp/mysql.sock
   
-test:
-  adapter: mysql2
-  database: myapp_test
-  username: root
-  encoding: utf8
+# test:
+#   adapter: mysql2
+#   database: myapp_test
+#   username: root
+#   encoding: utf8
 
 production:
   adapter: mysql2
