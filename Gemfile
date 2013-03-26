@@ -45,6 +45,7 @@ group :development do
   gem "binding_of_caller", "~> 0.7.1"
   gem "meta_request", "~> 0.2.2"
   gem "awesome_print", :require => false
+  gem "bullet", "~> 4.5.0"
 end
 
 # To use ActiveModel has_secure_password
