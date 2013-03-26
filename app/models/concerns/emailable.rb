@@ -7,6 +7,8 @@ module Emailable
                             presence: true,
                             uniqueness_on_domain: { if: :domain }
     validates :domain,  presence: true
+    
+    default_scope includes(:domain)
   end
   
   def email
