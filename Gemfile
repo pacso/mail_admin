@@ -62,4 +62,4 @@ gem "rvm-capistrano", "~> 1.2.7"
 gem "highline", "~> 1.6.15"
 
 # To use debugger
-gem 'debugger'
+# gem 'debugger'
