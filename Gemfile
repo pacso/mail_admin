@@ -21,7 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-gem "haml", "~> 4.0.0"
+gem "haml", "~> 5.0.0"
 gem "simple_form", "~> 2.1.0"
 
 gem "cancan", "~> 1.6.9"
