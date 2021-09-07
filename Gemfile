@@ -41,7 +41,7 @@ group :development, :test do
 end
 
 group :development do
-  gem "better_errors", "~> 0.7.2"
+  gem "better_errors", "~> 2.8.0"
   gem "binding_of_caller", "~> 0.7.1"
   gem "meta_request", "~> 0.2.2"
   gem "awesome_print", :require => false

@@ -32,9 +32,10 @@ GEM
     arel (3.0.2)
     awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
-    better_errors (0.7.2)
+    better_errors (2.8.0)
       coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.0.1)
@@ -64,17 +65,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.1)
-    columnize (0.3.6)
     database_cleaner (0.9.1)
     debug_inspector (0.0.2)
-    debugger (1.4.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.2.0)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
+    erubi (1.10.0)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -228,7 +222,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   bcrypt-ruby (~> 3.0.0)
-  better_errors (~> 0.7.2)
+  better_errors (~> 2.8.0)
   binding_of_caller (~> 0.7.1)
   bootstrap-sass (~> 2.3.0.1)
   cancan (~> 1.6.9)
@@ -236,7 +230,6 @@ DEPENDENCIES
   capybara (~> 2.0.2)
   coffee-rails (~> 3.2.1)
   database_cleaner (~> 0.9.1)
-  debugger
   factory_girl_rails (~> 4.2.1)
   faker (~> 1.1.2)
   guard-rspec (~> 2.5.0)
