@@ -64,16 +64,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.1)
-    columnize (0.3.6)
+    concurrent-ruby (1.1.10)
     database_cleaner (0.9.1)
     debug_inspector (0.0.2)
-    debugger (1.4.0)
-      columnize (>= 0.3.1)
-      debugger-linecache (~> 1.1.1)
-      debugger-ruby_core_source (~> 1.2.0)
-    debugger-linecache (1.1.2)
-      debugger-ruby_core_source (>= 1.1.1)
-    debugger-ruby_core_source (1.2.0)
     diff-lcs (1.2.1)
     erubis (2.7.0)
     execjs (1.4.0)
@@ -103,7 +96,8 @@ GEM
       tilt
     highline (1.6.15)
     hike (1.2.1)
-    i18n (0.6.4)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     journey (1.0.4)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
@@ -236,7 +230,6 @@ DEPENDENCIES
   capybara (~> 2.0.2)
   coffee-rails (~> 3.2.1)
   database_cleaner (~> 0.9.1)
-  debugger
   factory_girl_rails (~> 4.2.1)
   faker (~> 1.1.2)
   guard-rspec (~> 2.5.0)
